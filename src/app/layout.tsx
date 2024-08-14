@@ -3,6 +3,7 @@ import { ClerkProvider } from '@clerk/nextjs'
 import type { Metadata } from 'next'
 import { Poppins as FontSans } from 'next/font/google'
 import './globals.css'
+import QueryProvider from '@/providers/query-provider'
 
 const font = FontSans({ subsets: ['latin'], weight: ['200', '400', '700'] })
 
@@ -20,7 +21,9 @@ export default function RootLayout({
 		<ClerkProvider>
 			<html lang='en'>
 				<body className={font.className}>
-					<ThemeProvider>{children}</ThemeProvider>
+					<ThemeProvider>
+						<QueryProvider>{children}</QueryProvider>
+					</ThemeProvider>
 				</body>
 			</html>
 		</ClerkProvider>
