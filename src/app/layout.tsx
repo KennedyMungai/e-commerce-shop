@@ -4,7 +4,7 @@ import type { Metadata } from 'next'
 import { Poppins as FontSans } from 'next/font/google'
 import './globals.css'
 
-const font = FontSans({ subsets: ['latin'], weight: ['400', '700'] })
+const font = FontSans({ subsets: ['latin'], weight: ['200', '400', '700'] })
 
 export const metadata: Metadata = {
 	title: 'E Commerce Shop',
