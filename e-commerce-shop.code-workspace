@@ -5,6 +5,6 @@
 		}
 	],
 	"settings": {
-		"cSpell.words": ["nextjs", "trpc"]
+		"cSpell.words": ["clsx", "lucide", "nextjs", "tailwindcss", "trpc"]
 	}
 }

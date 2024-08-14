@@ -1,9 +1,10 @@
+import { ThemeProvider } from '@/providers/theme-provider'
 import { ClerkProvider } from '@clerk/nextjs'
 import type { Metadata } from 'next'
-import { Inter } from 'next/font/google'
+import { Poppins as FontSans } from 'next/font/google'
 import './globals.css'
 
-const inter = Inter({ subsets: ['latin'] })
+const font = FontSans({ subsets: ['latin'], weight: ['400', '700'] })
 
 export const metadata: Metadata = {
 	title: 'E Commerce Shop',
@@ -18,7 +19,9 @@ export default function RootLayout({
 	return (
 		<ClerkProvider>
 			<html lang='en'>
-				<body className={inter.className}>{children}</body>
+				<body className={font.className}>
+					<ThemeProvider>{children}</ThemeProvider>
+				</body>
 			</html>
 		</ClerkProvider>
 	)
