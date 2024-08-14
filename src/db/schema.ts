@@ -129,3 +129,12 @@ export const productRating = pgTable('product_rating', {
 		.notNull(),
 	rating: integer('rating').notNull()
 })
+
+export const productRatingRelations = relations(productRating, ({ one }) => ({
+	product: one(product, {
+		fields: [productRating.productId],
+		references: [product.id]
+	})
+}))
+
+export const createProductRating = createInsertSchema(productRating)
