@@ -5,13 +5,6 @@
 		}
 	],
 	"settings": {
-		"cSpell.words": [
-			"clsx",
-			"lucide",
-			"nextjs",
-			"tailwindcss",
-			"tanstack",
-			"trpc"
-		]
+		"cSpell.words": ["clsx", "Hono", "lucide", "nextjs", "tailwindcss", "tanstack", "trpc"]
 	}
 }
