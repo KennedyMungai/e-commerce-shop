@@ -20,7 +20,7 @@ const app = new Hono()
 			const data = await db
 				.select({
 					id: product.id,
-					name: product.productName,
+					name: product.name,
 					price: product.price
 				})
 				.from(product)
@@ -42,7 +42,7 @@ const app = new Hono()
 			const [data] = await db
 				.select({
 					id: product.id,
-					name: product.productName,
+					name: product.name,
 					price: product.price
 				})
 				.from(product)
@@ -59,7 +59,7 @@ const app = new Hono()
 		zValidator(
 			'json',
 			createProduct.pick({
-				productName: true,
+				name: true,
 				price: true,
 				description: true,
 				categoryId: true
@@ -77,14 +77,13 @@ const app = new Hono()
 				price: true,
 				description: true,
 				imageUrl: true,
-				productName: true
+				name: true
 			})
 		),
 		async (c) => {
 			const auth = getAuth(c)
 			const { id } = c.req.valid('param')
-			const { description, price, productName, imageUrl } =
-				c.req.valid('json')
+			const { description, price, name, imageUrl } = c.req.valid('json')
 
 			if (!auth?.userId) return c.json({ error: 'Not Authorized' }, 401)
 
@@ -93,7 +92,7 @@ const app = new Hono()
 				.set({
 					description,
 					price,
-					productName,
+					name,
 					imageUrl
 				})
 				.where(eq(product.id, id))
