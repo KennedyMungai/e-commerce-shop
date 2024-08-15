@@ -15,7 +15,10 @@ export const useCreateCategory = () => {
 			const response = await client.api.category.$post({ json })
 			return await response.json()
 		},
-		onSuccess: () => toast.success('Category created successfully'),
+		onSuccess: () => {
+			toast.success('Category created successfully')
+			queryClient.invalidateQueries({ queryKey: ['categories'] })
+		},
 		onError: () => toast.error('Failed to create category')
 	})
 

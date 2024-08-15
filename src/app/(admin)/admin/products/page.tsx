@@ -2,12 +2,20 @@
 
 import AdminTopbar from '@/components/admin/admin-topbar'
 import { ScrollArea } from '@/components/ui/scroll-area'
-import AddCategoryButton from '@/features/category/components/add-category-button'
+import { useFetchCategories } from '@/features/category/api/use-fetch-categories'
+import AddCategoryForm from '@/features/category/components/add-category-form'
+import CategoryCard from '@/features/category/components/category-card'
 import CategorySheet from '@/features/category/components/category-sheet'
 import { useCreateCategorySheet } from '@/features/category/hooks/use-create-category-sheet'
 
 const ProductsPage = () => {
 	const { onOpen } = useCreateCategorySheet()
+
+	const {
+		data: categories,
+		isLoading: isCategoriesLoading,
+		isPending: isCategoriesPending
+	} = useFetchCategories()
 
 	return (
 		<>
@@ -15,7 +23,16 @@ const ProductsPage = () => {
 				<AdminTopbar title='Products' />
 				<div className='max-h-[85vh] flex items-center justify-center p-4'>
 					<ScrollArea className='h-[80vh] m-2 flex items-center justify-center'>
-						<AddCategoryButton onClick={onOpen} />
+						<div className='flex items-center justify-center gap-4'>
+							{categories?.map((category) => (
+								<CategoryCard
+									key={category.id}
+									name={category.name}
+									description={category.description}
+								/>
+							))}
+							<AddCategoryForm onClick={onOpen} />
+						</div>
 					</ScrollArea>
 				</div>
 			</div>

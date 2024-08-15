@@ -7,7 +7,7 @@ type Props = {
 	onClick: () => void
 }
 
-const AddCategoryButton = ({ onClick }: Props) => {
+const AddCategoryForm = ({ onClick }: Props) => {
 	return (
 		<Card
 			className='w-48 h-64 flex items-center justify-center'
@@ -18,4 +18,4 @@ const AddCategoryButton = ({ onClick }: Props) => {
 	)
 }
 
-export default AddCategoryButton
+export default AddCategoryForm
