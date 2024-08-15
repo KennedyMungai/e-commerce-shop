@@ -1,7 +1,9 @@
 'use client'
 
 import AdminTopbar from '@/components/admin/admin-topbar'
+import { Button } from '@/components/ui/button'
 import { useFetchCategory } from '@/features/category/api/use-fetch-category'
+import ProductTable from '@/features/product/components/product-table'
 
 type Props = {
 	params: {
@@ -23,6 +25,12 @@ const CategoryPage = ({ params: { categoryId } }: Props) => {
 	return (
 		<div>
 			<AdminTopbar title={category.name} />
+			<div className='p-4 flex flex-col gap-y-4'>
+				<div className='w-full flex items-center justify-between'>
+					<Button variant={'outline'}>Add Product</Button>
+				</div>
+				<ProductTable />
+			</div>
 		</div>
 	)
 }

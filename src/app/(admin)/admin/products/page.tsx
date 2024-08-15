@@ -3,7 +3,7 @@
 import AdminTopbar from '@/components/admin/admin-topbar'
 import { ScrollArea } from '@/components/ui/scroll-area'
 import { useFetchCategories } from '@/features/category/api/use-fetch-categories'
-import AddCategoryForm from '@/features/category/components/add-category-form'
+import AddCategoryCard from '@/features/category/components/add-category-card'
 import CategoryCard from '@/features/category/components/category-card'
 import CategorySheet from '@/features/category/components/category-sheet'
 import { useCreateCategorySheet } from '@/features/category/hooks/use-create-category-sheet'
@@ -32,7 +32,7 @@ const ProductsPage = () => {
 									categoryId={category.id}
 								/>
 							))}
-							<AddCategoryForm onClick={onOpen} />
+							<AddCategoryCard onClick={onOpen} />
 						</div>
 					</ScrollArea>
 				</div>
