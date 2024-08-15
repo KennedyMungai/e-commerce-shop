@@ -14,7 +14,8 @@
 			"tailwindcss",
 			"tanstack",
 			"Topbar",
-			"trpc"
+			"trpc",
+			"zustand"
 		]
 	}
 }
