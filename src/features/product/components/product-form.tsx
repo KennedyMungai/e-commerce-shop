@@ -87,7 +87,7 @@ const ProductForm = ({ categoryId }: Props) => {
 						</FormItem>
 					)}
 				/>
-				<Button type='submit' className='w-full'>
+				<Button type='submit' className='w-full mt-6'>
 					Create Product
 				</Button>
 			</form>
