@@ -13,7 +13,6 @@ export const useCreateProduct = () => {
 		mutationKey: ['createProduct'],
 		mutationFn: async (json) => {
 			const response = await client.api.product.$post({ json })
-
 			return await response.json()
 		},
 		onSuccess: () => {
