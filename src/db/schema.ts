@@ -17,7 +17,7 @@ export const product = pgTable('product', {
 		.references(() => category.id, { onDelete: 'cascade' })
 		.notNull(),
 	description: text('description').notNull(),
-	price: decimal('price').notNull(),
+	price: varchar('price').notNull(),
 	imageUrl: varchar('image', { length: 512 }),
 	createdAt: timestamp('created_at').defaultNow().notNull(),
 	updatedAT: timestamp('updated_at').$onUpdate(() => new Date())
