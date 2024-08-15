@@ -65,7 +65,26 @@ const app = new Hono()
 				categoryId: true
 			})
 		),
-		async (c) => {}
+		async (c) => {
+			const auth = getAuth(c)
+			const { name, price, description, categoryId } = c.req.valid('json')
+
+			if (!auth?.userId) return c.json({ error: 'Not Authorized' }, 401)
+
+			const [data] = await db
+				.insert(product)
+				.values({
+					name,
+					price,
+					description,
+					categoryId
+				})
+				.returning({ id: product.id })
+
+			if (!data) return c.json({ error: 'Failed to create product' }, 400)
+
+			return c.json({ data })
+		}
 	)
 	.patch(
 		'/:id',
