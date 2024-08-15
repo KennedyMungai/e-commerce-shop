@@ -2,6 +2,8 @@ import { Hono } from 'hono'
 import { handle } from 'hono/vercel'
 import category from './category'
 
+export const runtime = 'edge'
+
 const app = new Hono().basePath('/api').route('/category', category)
 
 export const GET = handle(app)

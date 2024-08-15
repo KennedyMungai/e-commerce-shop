@@ -15,14 +15,8 @@ export const useCreateCategory = () => {
 			const response = await client.api.category.$post({ json })
 			return await response.json()
 		},
-		onSuccess: () =>
-			toast.success('Category created successfully', {
-				className: 'text-green-500'
-			}),
-		onError: () =>
-			toast.error('Failed to create category', {
-				className: 'text-red-500'
-			})
+		onSuccess: () => toast.success('Category created successfully'),
+		onError: () => toast.error('Failed to create category')
 	})
 
 	return mutation
