@@ -13,6 +13,8 @@ import { createProduct } from '@/db/schema'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useForm } from 'react-hook-form'
 import { z } from 'zod'
+import { useCreateProduct } from '@/features/product/api/use-create-product'
+import { useCreateProductSheet } from '../hooks/use-create-product-sheet'
 type Props = {
 	categoryId: string
 }
@@ -27,6 +29,9 @@ const formSchema = createProduct.pick({
 type FormValues = z.input<typeof formSchema>
 
 const ProductForm = ({ categoryId }: Props) => {
+	const { mutate, isPending } = useCreateProduct()
+	const { onClose } = useCreateProductSheet()
+
 	const form = useForm<FormValues>({
 		resolver: zodResolver(formSchema),
 		defaultValues: {
@@ -37,7 +42,11 @@ const ProductForm = ({ categoryId }: Props) => {
 		}
 	})
 
-	const onSubmit = (values: FormValues) => console.log(values)
+	const onSubmit = (values: FormValues) => {
+		mutate(values, { onSuccess: onClose })
+
+		form.reset()
+	}
 
 	return (
 		<Form {...form}>
@@ -65,7 +74,11 @@ const ProductForm = ({ categoryId }: Props) => {
 						<FormItem>
 							<FormLabel>Price</FormLabel>
 							<FormControl>
-								<Input placeholder='e.g. 1000' {...field} />
+								<Input
+									placeholder='e.g. 1000'
+									type='number'
+									{...field}
+								/>
 							</FormControl>
 							<FormMessage />
 						</FormItem>
@@ -87,7 +100,11 @@ const ProductForm = ({ categoryId }: Props) => {
 						</FormItem>
 					)}
 				/>
-				<Button type='submit' className='w-full mt-6'>
+				<Button
+					type='submit'
+					className='w-full mt-6'
+					disabled={isPending}
+				>
 					Create Product
 				</Button>
 			</form>
