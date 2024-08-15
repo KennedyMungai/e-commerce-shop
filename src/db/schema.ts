@@ -51,39 +51,39 @@ export const categoryRelations = relations(category, ({ many }) => ({
 
 export const createCategory = createInsertSchema(category)
 
-export const cart = pgTable('cart', {
-	id: uuid('id').defaultRandom().primaryKey(),
-	userId: varchar('user_id').notNull(),
-	productId: uuid('product_id')
-		.references(() => product.id, { onDelete: 'cascade' })
-		.notNull(),
-	quantity: integer('quantity').notNull(),
-	createdAt: timestamp('created_at').defaultNow().notNull(),
-	updatedAT: timestamp('updated_at').$onUpdate(() => new Date())
-})
+// export const cart = pgTable('cart', {
+// 	id: uuid('id').defaultRandom().primaryKey(),
+// 	userId: varchar('user_id').notNull(),
+// 	productId: uuid('product_id')
+// 		.references(() => product.id, { onDelete: 'cascade' })
+// 		.notNull(),
+// 	quantity: integer('quantity').notNull(),
+// 	createdAt: timestamp('created_at').defaultNow().notNull(),
+// 	updatedAT: timestamp('updated_at').$onUpdate(() => new Date())
+// })
 
-export const cartRelations = relations(cart, ({ many }) => ({
-	cart: many(product)
-}))
+// export const cartRelations = relations(cart, ({ many }) => ({
+// 	cart: many(product)
+// }))
 
-export const createCart = createInsertSchema(cart)
+// export const createCart = createInsertSchema(cart)
 
-export const order = pgTable('order', {
-	id: uuid('id').defaultRandom().primaryKey(),
-	userId: varchar('user_id').notNull(),
-	productId: uuid('product_id')
-		.references(() => product.id, { onDelete: 'cascade' })
-		.notNull(),
-	quantity: integer('quantity').notNull(),
-	createdAt: timestamp('created_at').defaultNow().notNull(),
-	updatedAT: timestamp('updated_at').$onUpdate(() => new Date())
-})
+// export const order = pgTable('order', {
+// 	id: uuid('id').defaultRandom().primaryKey(),
+// 	userId: varchar('user_id').notNull(),
+// 	productId: uuid('product_id')
+// 		.references(() => product.id, { onDelete: 'cascade' })
+// 		.notNull(),
+// 	quantity: integer('quantity').notNull(),
+// 	createdAt: timestamp('created_at').defaultNow().notNull(),
+// 	updatedAT: timestamp('updated_at').$onUpdate(() => new Date())
+// })
 
-export const orderRelations = relations(order, ({ many }) => ({
-	order: many(product)
-}))
+// export const orderRelations = relations(order, ({ many }) => ({
+// 	order: many(product)
+// }))
 
-export const createOrder = createInsertSchema(order)
+// export const createOrder = createInsertSchema(order)
 
 export const inventory = pgTable('inventory', {
 	id: uuid('id').defaultRandom().primaryKey(),
