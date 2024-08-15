@@ -16,12 +16,12 @@ import { usePathname } from 'next/navigation'
 const AdminSidebar = () => {
 	const pathName = usePathname()
 
-	const route = pathName?.split('/')?.[1]
+	const route = pathName?.split('/')?.[2]
 
 	return (
 		<nav className='fixed h-full w-32 border-r shadow-sm flex flex-col items-center justify-between py-4'>
 			<div className='flex flex-col items-center gap-y-2'>
-				<Link href='/inventory'>
+				<Link href='/admin'>
 					<Image src='/logo.svg' width={60} height={60} alt='Logo' />
 				</Link>
 				<p className='text-sm text-center text-[#f85]'>
@@ -35,7 +35,10 @@ const AdminSidebar = () => {
 					size={'sm'}
 					asChild
 				>
-					<Link href='/inventory' className='flex justify-between'>
+					<Link
+						href='/admin/inventory'
+						className='flex justify-between'
+					>
 						<ClipboardListIcon className='size-4' />{' '}
 						<p className='text-sm'>Inventory</p>
 					</Link>
@@ -46,7 +49,7 @@ const AdminSidebar = () => {
 					size={'sm'}
 					asChild
 				>
-					<Link href='/orders' className='flex justify-between'>
+					<Link href='/admin/orders' className='flex justify-between'>
 						<BikeIcon className='size-4' />{' '}
 						<p className='text-sm'>Orders</p>
 					</Link>
@@ -57,7 +60,10 @@ const AdminSidebar = () => {
 					size={'sm'}
 					asChild
 				>
-					<Link href='/products' className='flex justify-between'>
+					<Link
+						href='/admin/products'
+						className='flex justify-between'
+					>
 						<ShoppingBasketIcon className='size-4' />{' '}
 						<p className='text-sm'>Products</p>
 					</Link>
@@ -68,7 +74,7 @@ const AdminSidebar = () => {
 					size={'sm'}
 					asChild
 				>
-					<Link href='/users' className='flex justify-between'>
+					<Link href='/admin/users' className='flex justify-between'>
 						<UserIcon className='size-4' />{' '}
 						<p className='text-sm'>Users</p>
 					</Link>
@@ -79,7 +85,10 @@ const AdminSidebar = () => {
 					size={'sm'}
 					asChild
 				>
-					<Link href='/suppliers' className='flex justify-between'>
+					<Link
+						href='/admin/suppliers'
+						className='flex justify-between'
+					>
 						<TruckIcon className='size-4' />{' '}
 						<p className='text-sm'>Suppliers</p>
 					</Link>

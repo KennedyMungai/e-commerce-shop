@@ -16,12 +16,14 @@ const NotFoundPage = () => {
 				/>
 			</Link>
 			<p className='text-3xl text-[#f85]'>404 | Page Not Found</p>
-			<Button
-				variant={'outline'}
-				className='bg-transparent text-[#f85] hover:text-[#f85]'
-			>
-				Go Back
-			</Button>
+			<Link href='/'>
+				<Button
+					variant={'outline'}
+					className='bg-transparent text-[#f85] hover:text-[#f85]'
+				>
+					Go Back
+				</Button>
+			</Link>
 		</div>
 	)
 }
