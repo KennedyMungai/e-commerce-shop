@@ -29,6 +29,7 @@ const ProductsPage = () => {
 									key={category.id}
 									name={category.name}
 									description={category.description}
+									categoryId={category.id}
 								/>
 							))}
 							<AddCategoryForm onClick={onOpen} />
