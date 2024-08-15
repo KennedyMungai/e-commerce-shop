@@ -12,7 +12,7 @@ import { createInsertSchema } from 'drizzle-zod'
 
 export const product = pgTable('product', {
 	id: uuid('id').defaultRandom().primaryKey(),
-	productName: varchar('product_name', { length: 255 }).notNull(),
+	name: varchar('name', { length: 255 }).notNull(),
 	categoryId: uuid('category_id')
 		.references(() => category.id, { onDelete: 'cascade' })
 		.notNull(),
