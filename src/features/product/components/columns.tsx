@@ -8,11 +8,11 @@ import { z } from 'zod'
 
 const productSchema = createProduct.pick({
 	id: true,
-	productName: true,
+	name: true,
 	price: true
 })
 
-type Product = z.input<typeof productSchema>
+export type Product = z.input<typeof productSchema>
 
 export const columns: ColumnDef<Product>[] = [
 	{
