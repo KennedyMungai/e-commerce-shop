@@ -1,9 +1,10 @@
+import { Toaster } from '@/components/ui/sonner'
+import QueryProvider from '@/providers/query-provider'
 import { ThemeProvider } from '@/providers/theme-provider'
 import { ClerkProvider } from '@clerk/nextjs'
 import type { Metadata } from 'next'
 import { Poppins as FontSans } from 'next/font/google'
 import './globals.css'
-import QueryProvider from '@/providers/query-provider'
 
 const font = FontSans({ subsets: ['latin'], weight: ['200', '400', '700'] })
 
@@ -22,7 +23,10 @@ export default function RootLayout({
 			<html lang='en'>
 				<body className={font.className}>
 					<ThemeProvider>
-						<QueryProvider>{children}</QueryProvider>
+						<QueryProvider>
+							<Toaster />
+							{children}
+						</QueryProvider>
 					</ThemeProvider>
 				</body>
 			</html>
