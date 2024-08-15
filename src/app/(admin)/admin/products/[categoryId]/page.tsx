@@ -4,7 +4,8 @@ import AdminTopbar from '@/components/admin/admin-topbar'
 import { Button } from '@/components/ui/button'
 import { useFetchCategory } from '@/features/category/api/use-fetch-category'
 import { useFetchProducts } from '@/features/product/api/use-fetch-products'
-import ProductTable from '@/features/product/components/product-table'
+import { columns } from '@/features/product/components/columns'
+import { DataTable } from '@/features/product/components/data-table'
 
 type Props = {
 	params: {
@@ -13,13 +14,23 @@ type Props = {
 }
 
 const CategoryPage = ({ params: { categoryId } }: Props) => {
-	const { data: category, isPending, isError } = useFetchProducts(categoryId)
+	const {
+		data: products,
+		isPending: isProductsPending,
+		isError: isProductsError
+	} = useFetchProducts(categoryId)
 
-	if (isPending) {
+	const {
+		data: category,
+		isPending: isCategoryPending,
+		isError: isCategoryError
+	} = useFetchCategory(categoryId)
+
+	if (isProductsPending || isCategoryPending) {
 		return <p>Loading...</p>
 	}
 
-	if (isError) {
+	if (isProductsError || isCategoryError) {
 		return <p>Error</p>
 	}
 
@@ -30,7 +41,7 @@ const CategoryPage = ({ params: { categoryId } }: Props) => {
 				<div className='w-full flex items-center justify-between'>
 					<Button variant={'outline'}>Add Product</Button>
 				</div>
-				<ProductTable />
+				<DataTable columns={columns} data={products} />
 			</div>
 		</div>
 	)
