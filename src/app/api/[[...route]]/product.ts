@@ -2,26 +2,33 @@ import { db } from '@/db'
 import { createProduct, product } from '@/db/schema'
 import { clerkMiddleware, getAuth } from '@hono/clerk-auth'
 import { zValidator } from '@hono/zod-validator'
-import { desc, eq } from 'drizzle-orm'
+import { eq } from 'drizzle-orm'
 import { Hono } from 'hono'
 import { z } from 'zod'
 
 const app = new Hono()
-	.get('/', clerkMiddleware(), async (c) => {
-		const auth = getAuth(c)
+	.get(
+		'/category/:categoryId',
+		clerkMiddleware(),
+		zValidator('param', z.object({ categoryId: z.string() })),
+		async (c) => {
+			const auth = getAuth(c)
+			const { categoryId } = c.req.valid('param')
 
-		if (!auth?.userId) return c.json({ error: 'Not Authorized' }, 401)
+			if (!auth?.userId) return c.json({ error: 'Not Authorized' }, 401)
 
-		const data = await db
-			.select({
-				id: product.id,
-				name: product.productName,
-				price: product.price
-			})
-			.from(product)
+			const data = await db
+				.select({
+					id: product.id,
+					name: product.productName,
+					price: product.price
+				})
+				.from(product)
+				.where(eq(product.categoryId, categoryId))
 
-		return c.json({ data })
-	})
+			return c.json({ data })
+		}
+	)
 	.get(
 		'/:id',
 		clerkMiddleware(),

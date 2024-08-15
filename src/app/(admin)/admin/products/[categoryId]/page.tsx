@@ -3,6 +3,7 @@
 import AdminTopbar from '@/components/admin/admin-topbar'
 import { Button } from '@/components/ui/button'
 import { useFetchCategory } from '@/features/category/api/use-fetch-category'
+import { useFetchProducts } from '@/features/product/api/use-fetch-products'
 import ProductTable from '@/features/product/components/product-table'
 
 type Props = {
@@ -12,7 +13,7 @@ type Props = {
 }
 
 const CategoryPage = ({ params: { categoryId } }: Props) => {
-	const { data: category, isPending, isError } = useFetchCategory(categoryId)
+	const { data: category, isPending, isError } = useFetchProducts(categoryId)
 
 	if (isPending) {
 		return <p>Loading...</p>
