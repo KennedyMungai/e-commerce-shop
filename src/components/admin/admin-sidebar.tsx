@@ -44,17 +44,6 @@ const AdminSidebar = () => {
 					</Link>
 				</Button>
 				<Button
-					className='flex items-center justify-center gap-x-2 w-full'
-					variant={route === 'orders' ? 'default' : 'outline'}
-					size={'sm'}
-					asChild
-				>
-					<Link href='/admin/orders' className='flex justify-between'>
-						<BikeIcon className='size-4' />{' '}
-						<p className='text-sm'>Orders</p>
-					</Link>
-				</Button>
-				<Button
 					className='flex items-center justify-center w-full gap-x-2'
 					variant={route === 'products' ? 'default' : 'outline'}
 					size={'sm'}
@@ -66,6 +55,17 @@ const AdminSidebar = () => {
 					>
 						<ShoppingBasketIcon className='size-4' />{' '}
 						<p className='text-sm'>Products</p>
+					</Link>
+				</Button>
+				<Button
+					className='flex items-center justify-center gap-x-2 w-full'
+					variant={route === 'orders' ? 'default' : 'outline'}
+					size={'sm'}
+					asChild
+				>
+					<Link href='/admin/orders' className='flex justify-between'>
+						<BikeIcon className='size-4' />{' '}
+						<p className='text-sm'>Orders</p>
 					</Link>
 				</Button>
 				<Button
