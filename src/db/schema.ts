@@ -1,6 +1,5 @@
 import { relations } from 'drizzle-orm'
 import {
-	decimal,
 	integer,
 	pgTable,
 	text,
@@ -15,6 +14,9 @@ export const product = pgTable('product', {
 	name: varchar('name', { length: 255 }).notNull(),
 	categoryId: uuid('category_id')
 		.references(() => category.id, { onDelete: 'cascade' })
+		.notNull(),
+	supplierId: uuid('supplier_id')
+		.references(() => supplier.id, { onDelete: 'cascade' })
 		.notNull(),
 	description: text('description').notNull(),
 	price: varchar('price').notNull(),
@@ -32,6 +34,10 @@ export const productRelations = relations(product, ({ many, one }) => ({
 	inventory: one(inventory, {
 		fields: [product.id],
 		references: [inventory.productId]
+	}),
+	supplier: one(supplier, {
+		fields: [product.supplierId],
+		references: [supplier.id]
 	})
 }))
 
@@ -90,6 +96,9 @@ export const inventory = pgTable('inventory', {
 	productId: uuid('product_id')
 		.references(() => product.id, { onDelete: 'cascade' })
 		.notNull(),
+	categoryId: uuid('category_id')
+		.references(() => category.id, { onDelete: 'cascade' })
+		.notNull(),
 	productName: varchar('product_name', { length: 255 }).notNull(),
 	quantity: integer('quantity').notNull(),
 	createdAt: timestamp('created_at').defaultNow().notNull(),
@@ -139,3 +148,20 @@ export const productRatingRelations = relations(productRating, ({ one }) => ({
 }))
 
 export const createProductRating = createInsertSchema(productRating)
+
+export const supplier = pgTable('supplier', {
+	id: uuid('id').defaultRandom().primaryKey(),
+	supplierName: varchar('supplier_name', { length: 255 }).notNull(),
+	supplierEmail: varchar('supplier_email', { length: 255 }).notNull(),
+	supplierPhoneNumber: varchar('supplier_phone_number', {
+		length: 13
+	}).notNull(),
+	createdAt: timestamp('created_at').defaultNow().notNull(),
+	updatedAT: timestamp('updated_at').$onUpdate(() => new Date())
+})
+
+export const supplierRelations = relations(supplier, ({ many }) => ({
+	products: many(product)
+}))
+
+export const createSupplier = createInsertSchema(supplier)
