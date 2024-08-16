@@ -155,9 +155,9 @@ export const createProductRating = createInsertSchema(productRating)
 
 export const supplier = pgTable('supplier', {
 	id: uuid('id').defaultRandom().primaryKey(),
-	supplierName: varchar('supplier_name', { length: 255 }).notNull(),
-	supplierEmail: varchar('supplier_email', { length: 255 }).notNull(),
-	supplierPhoneNumber: varchar('supplier_phone_number', {
+	name: varchar('supplier_name', { length: 255 }).notNull(),
+	email: varchar('supplier_email', { length: 255 }).notNull(),
+	phoneNumber: varchar('supplier_phone_number', {
 		length: 13
 	}).notNull(),
 	createdAt: timestamp('created_at').defaultNow().notNull(),
