@@ -58,27 +58,21 @@ const app = new Hono()
 		clerkMiddleware(),
 		zValidator(
 			'json',
-			createProduct.pick({
-				name: true,
-				price: true,
-				description: true,
-				categoryId: true
+			createProduct.omit({
+				id: true,
+				createdAt: true,
+				updatedAt: true
 			})
 		),
 		async (c) => {
 			const auth = getAuth(c)
-			const { name, price, description, categoryId } = c.req.valid('json')
+			const values = c.req.valid('json')
 
 			if (!auth?.userId) return c.json({ error: 'Not Authorized' }, 401)
 
 			const [data] = await db
 				.insert(product)
-				.values({
-					name,
-					price,
-					description,
-					categoryId
-				})
+				.values(values)
 				.returning({ id: product.id })
 
 			if (!data) return c.json({ error: 'Failed to create product' }, 400)
