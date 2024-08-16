@@ -26,7 +26,7 @@ const TopBar = () => {
 			<div className='w-auto flex flex-1 px-12'>
 				<Input
 					className='flex-1 text-center ring-0 outline-none'
-					placeholder='Search for products'
+					placeholder='Search for items'
 					value={searchTerm}
 					onChange={(e) => setSearchTerm(e.target.value)}
 				/>
