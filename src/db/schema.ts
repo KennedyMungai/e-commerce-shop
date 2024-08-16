@@ -108,7 +108,9 @@ export const inventory = pgTable('inventory', {
 })
 
 export const inventoryRelations = relations(inventory, ({ many }) => ({
-	products: many(product)
+	products: many(product),
+	suppliers: many(supplier),
+	category: many(category)
 }))
 
 export const createInventory = createInsertSchema(inventory)
