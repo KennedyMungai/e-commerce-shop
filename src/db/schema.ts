@@ -22,7 +22,7 @@ export const product = pgTable('product', {
 	price: varchar('price').notNull(),
 	imageUrl: varchar('image', { length: 512 }),
 	createdAt: timestamp('created_at').defaultNow().notNull(),
-	updatedAT: timestamp('updated_at').$onUpdate(() => new Date())
+	updatedAt: timestamp('updated_at').$onUpdate(() => new Date())
 })
 
 export const productRelations = relations(product, ({ many, one }) => ({
@@ -48,7 +48,7 @@ export const category = pgTable('category', {
 	categoryName: varchar('category_name', { length: 255 }).notNull(),
 	description: text('description').notNull(),
 	createdAt: timestamp('created_at').defaultNow().notNull(),
-	updatedAT: timestamp('updated_at').$onUpdate(() => new Date())
+	updatedAt: timestamp('updated_at').$onUpdate(() => new Date())
 })
 
 export const categoryRelations = relations(category, ({ many }) => ({
@@ -65,7 +65,7 @@ export const createCategory = createInsertSchema(category)
 // 		.notNull(),
 // 	quantity: integer('quantity').notNull(),
 // 	createdAt: timestamp('created_at').defaultNow().notNull(),
-// 	updatedAT: timestamp('updated_at').$onUpdate(() => new Date())
+// 	updatedAt: timestamp('updated_at').$onUpdate(() => new Date())
 // })
 
 // export const cartRelations = relations(cart, ({ many }) => ({
@@ -82,7 +82,7 @@ export const createCategory = createInsertSchema(category)
 // 		.notNull(),
 // 	quantity: integer('quantity').notNull(),
 // 	createdAt: timestamp('created_at').defaultNow().notNull(),
-// 	updatedAT: timestamp('updated_at').$onUpdate(() => new Date())
+// 	updatedAt: timestamp('updated_at').$onUpdate(() => new Date())
 // })
 
 // export const orderRelations = relations(order, ({ many }) => ({
@@ -123,7 +123,7 @@ export const comment = pgTable('comment', {
 		.notNull(),
 	commentText: text('comment').notNull(),
 	createdAt: timestamp('created_at').defaultNow().notNull(),
-	updatedAT: timestamp('updated_at').$onUpdate(() => new Date())
+	updatedAt: timestamp('updated_at').$onUpdate(() => new Date())
 })
 
 export const commentRelations = relations(comment, ({ one }) => ({
