@@ -161,7 +161,7 @@ export const supplier = pgTable('supplier', {
 		length: 13
 	}).notNull(),
 	createdAt: timestamp('created_at').defaultNow().notNull(),
-	updatedAT: timestamp('updated_at').$onUpdate(() => new Date())
+	updatedAt: timestamp('updated_at').$onUpdate(() => new Date())
 })
 
 export const supplierRelations = relations(supplier, ({ many }) => ({
