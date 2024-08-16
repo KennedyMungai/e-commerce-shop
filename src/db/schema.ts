@@ -90,6 +90,7 @@ export const inventory = pgTable('inventory', {
 	productId: uuid('product_id')
 		.references(() => product.id, { onDelete: 'cascade' })
 		.notNull(),
+	productName: varchar('product_name', { length: 255 }).notNull(),
 	quantity: integer('quantity').notNull(),
 	createdAt: timestamp('created_at').defaultNow().notNull(),
 	updatedAT: timestamp('updated_at').$onUpdate(() => new Date())
