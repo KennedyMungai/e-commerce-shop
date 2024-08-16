@@ -20,7 +20,7 @@ const TopBar = () => {
 				</h1>
 			</div>
 			<div>{/* TODO: Add search bar */}</div>
-			<div className='flex gap-4'>
+			<div className='flex gap-4 items-center justify-center'>
 				<ClerkLoading>
 					<Loader2Icon className='size-6 animate-spin' />
 				</ClerkLoading>
