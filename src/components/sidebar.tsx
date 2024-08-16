@@ -34,7 +34,7 @@ const Sidebar = () => {
 					<Link key={category.id} href={`/${category.id}`}>
 						<Button
 							variant={
-								route === category.name ? 'default' : 'outline'
+								route === category.id ? 'default' : 'outline'
 							}
 							className='w-full'
 						>
