@@ -1,14 +1,18 @@
 'use client'
 
 import { ModeToggle } from '@/components/mode-toggle'
+import { Input } from '@/components/ui/input'
 import { ClerkLoaded, ClerkLoading, UserButton } from '@clerk/nextjs'
 import { Loader2Icon } from 'lucide-react'
 import Image from 'next/image'
 import Link from 'next/link'
+import { useState } from 'react'
 
 type Props = {}
 
 const TopBar = () => {
+	const [searchTerm, setSearchTerm] = useState('')
+
 	return (
 		<div className='w-full h-20 border-b shadow-sm flex items-center justify-between sticky top-0 px-4'>
 			<div className='flex items-center gap-4'>
@@ -19,7 +23,14 @@ const TopBar = () => {
 					E Commerce
 				</h1>
 			</div>
-			<div>{/* TODO: Add search bar */}</div>
+			<div className='w-auto flex flex-1 px-12'>
+				<Input
+					className='flex-1 text-center ring-0 outline-none'
+					placeholder='Search for products'
+					value={searchTerm}
+					onChange={(e) => setSearchTerm(e.target.value)}
+				/>
+			</div>
 			<div className='flex gap-4 items-center justify-center'>
 				<ClerkLoading>
 					<Loader2Icon className='size-6 animate-spin' />
