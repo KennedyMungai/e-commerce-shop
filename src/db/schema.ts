@@ -99,6 +99,9 @@ export const inventory = pgTable('inventory', {
 	categoryId: uuid('category_id')
 		.references(() => category.id, { onDelete: 'cascade' })
 		.notNull(),
+	supplierId: uuid('supplier_id')
+		.references(() => supplier.id, { onDelete: 'cascade' })
+		.notNull(),
 	productName: varchar('product_name', { length: 255 }).notNull(),
 	quantity: integer('quantity').notNull(),
 	createdAt: timestamp('created_at').defaultNow().notNull(),
