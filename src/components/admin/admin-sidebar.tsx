@@ -69,17 +69,6 @@ const AdminSidebar = () => {
 					</Link>
 				</Button>
 				<Button
-					className='flex w-full items-center justify-center gap-x-2'
-					variant={route === 'users' ? 'default' : 'outline'}
-					size={'sm'}
-					asChild
-				>
-					<Link href='/admin/users' className='flex justify-between'>
-						<UserIcon className='size-4' />{' '}
-						<p className='text-sm'>Users</p>
-					</Link>
-				</Button>
-				<Button
 					className=' w-full flex items-center justify-center gap-x-2'
 					variant={route === 'suppliers' ? 'default' : 'outline'}
 					size={'sm'}
