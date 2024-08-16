@@ -19,11 +19,10 @@ type Props = {
 	categoryId: string
 }
 
-const formSchema = createProduct.pick({
-	name: true,
-	price: true,
-	description: true,
-	categoryId: true
+const formSchema = createProduct.omit({
+	id: true,
+	createdAt: true,
+	updatedAt: true
 })
 
 type FormValues = z.input<typeof formSchema>
@@ -38,6 +37,7 @@ const ProductForm = ({ categoryId }: Props) => {
 			name: '',
 			price: '',
 			description: '',
+			supplierId: '',
 			categoryId
 		}
 	})
