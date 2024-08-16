@@ -105,7 +105,7 @@ export const inventory = pgTable('inventory', {
 	productName: varchar('product_name', { length: 255 }).notNull(),
 	quantity: integer('quantity').notNull(),
 	createdAt: timestamp('created_at').defaultNow().notNull(),
-	updatedAT: timestamp('updated_at').$onUpdate(() => new Date())
+	updatedAt: timestamp('updated_at').$onUpdate(() => new Date())
 })
 
 export const inventoryRelations = relations(inventory, ({ many }) => ({
