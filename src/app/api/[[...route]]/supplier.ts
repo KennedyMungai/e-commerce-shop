@@ -15,9 +15,9 @@ const app = new Hono()
 		const data = await db
 			.select({
 				id: supplier.id,
-				name: supplier.supplierName,
-				email: supplier.supplierEmail,
-				phoneNumber: supplier.supplierPhoneNumber
+				name: supplier.name,
+				email: supplier.email,
+				phoneNumber: supplier.phoneNumber
 			})
 			.from(supplier)
 
@@ -36,14 +36,47 @@ const app = new Hono()
 			const [data] = await db
 				.select({
 					id: supplier.id,
-					name: supplier.supplierName,
-					email: supplier.supplierEmail,
-					phoneNumber: supplier.supplierPhoneNumber
+					name: supplier.name,
+					email: supplier.email,
+					phoneNumber: supplier.phoneNumber
 				})
 				.from(supplier)
 				.where(eq(supplier.id, id))
 
 			if (!data) return c.json({ error: 'Supplier not found' }, 404)
+
+			return c.json({ data })
+		}
+	)
+	.post(
+		'/',
+		clerkMiddleware(),
+		zValidator(
+			'json',
+			createSupplier.omit({ id: true, createdAt: true, updatedAt: true })
+		),
+		async (c) => {
+			const auth = getAuth(c)
+			const { email, name, phoneNumber } =
+				c.req.valid('json')
+
+			if (!auth?.userId) return c.json({ error: 'Unauthorized' }, 401)
+
+			const [data] = await db
+				.insert(supplier)
+				.values({
+					email,
+					name,
+					phoneNumber
+				})
+				.returning({
+					email: supplier.email,
+					name: supplier.name,
+					phoneNumber: supplier.phoneNumber
+				})
+
+			if (!data)
+				return c.json({ error: 'Failed to create supplier' }, 400)
 
 			return c.json({ data })
 		}
@@ -59,17 +92,16 @@ const app = new Hono()
 		async (c) => {
 			const auth = getAuth(c)
 			const { id } = c.req.valid('param')
-			const { supplierEmail, supplierName, supplierPhoneNumber } =
-				c.req.valid('json')
+			const { email, name, phoneNumber } = c.req.valid('json')
 
 			if (!auth?.userId) return c.json({ error: 'Unauthorized' }, 401)
 
 			const [data] = await db
 				.update(supplier)
 				.set({
-					supplierEmail,
-					supplierName,
-					supplierPhoneNumber
+					email,
+					name,
+					phoneNumber
 				})
 				.where(eq(supplier.id, id))
 				.returning({ id: supplier.id })
