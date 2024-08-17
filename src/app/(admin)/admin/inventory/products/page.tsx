@@ -1,5 +1,12 @@
+import AdminTopbar from '@/components/admin/admin-topbar'
+
 const InventoryProducts = () => {
-	return <div>InventoryProducts</div>
+	return (
+		<div>
+			<AdminTopbar title='Products Inventory' />
+			InventoryProducts
+		</div>
+	)
 }
 
 export default InventoryProducts
