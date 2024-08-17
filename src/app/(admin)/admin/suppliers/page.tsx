@@ -3,6 +3,7 @@
 import AdminTopbar from '@/components/admin/admin-topbar'
 import { DataTable } from '@/components/data-table'
 import { Button } from '@/components/ui/button'
+import { ScrollArea } from '@/components/ui/scroll-area'
 import { useFetchSuppliers } from '@/features/supplier/api/use-fetch-suppliers'
 import { supplierColumns } from '@/features/supplier/components/supplier-columns'
 import SuppliersSheet from '@/features/supplier/components/suppliers-sheet'
@@ -34,7 +35,9 @@ const SuppliersPage = () => {
 							Add Supplier
 						</Button>
 					</div>
-					<DataTable columns={supplierColumns} data={suppliers} />
+					<ScrollArea className='h-[80vh] p-4'>
+						<DataTable columns={supplierColumns} data={suppliers} />
+					</ScrollArea>
 				</div>
 			</div>
 			<SuppliersSheet />
