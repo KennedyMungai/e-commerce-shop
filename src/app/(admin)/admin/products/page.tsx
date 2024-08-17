@@ -23,7 +23,7 @@ const ProductsPage = () => {
 				<AdminTopbar title='Products' />
 				<div className='max-h-[85vh] flex items-center justify-center p-4'>
 					<ScrollArea className='h-[80vh] m-2 flex items-center justify-center'>
-						<div className='flex items-center justify-center gap-4'>
+						<div className='flex items-center justify-center gap-6 flex-wrap'>
 							{categories?.map((category) => (
 								<CategoryCard
 									key={category.id}
