@@ -15,6 +15,14 @@ import { useForm } from 'react-hook-form'
 import { z } from 'zod'
 import { useCreateProduct } from '@/features/product/api/use-create-product'
 import { useCreateProductSheet } from '../hooks/use-create-product-sheet'
+import { useFetchSuppliers } from '../../supplier/api/use-fetch-suppliers'
+import {
+	Select,
+	SelectContent,
+	SelectItem,
+	SelectTrigger,
+	SelectValue
+} from '@/components/ui/select'
 type Props = {
 	categoryId: string
 }
@@ -31,6 +39,12 @@ const ProductForm = ({ categoryId }: Props) => {
 	const { mutate, isPending } = useCreateProduct()
 	const { onClose } = useCreateProductSheet()
 
+	const {
+		data: suppliers,
+		isPending: isSuppliersPending,
+		isError: isSuppliersError
+	} = useFetchSuppliers()
+
 	const form = useForm<FormValues>({
 		resolver: zodResolver(formSchema),
 		defaultValues: {
@@ -46,6 +60,14 @@ const ProductForm = ({ categoryId }: Props) => {
 		mutate(values, { onSuccess: onClose })
 
 		form.reset()
+	}
+
+	if (isSuppliersPending) {
+		return <div>Loading</div>
+	}
+
+	if (isSuppliersError) {
+		return <div>Error</div>
 	}
 
 	return (
@@ -97,6 +119,37 @@ const ProductForm = ({ categoryId }: Props) => {
 								/>
 							</FormControl>
 							<FormMessage />
+						</FormItem>
+					)}
+				/>
+				<FormField
+					control={form.control}
+					name='supplierId'
+					render={({ field }) => (
+						<FormItem>
+							<FormLabel>Supplier</FormLabel>
+							<FormControl>
+								<Select
+									onValueChange={field.onChange}
+									value={field.value}
+								>
+									<FormControl>
+										<SelectTrigger>
+											<SelectValue placeholder='Select the supplier' />
+										</SelectTrigger>
+									</FormControl>
+									<SelectContent>
+										{suppliers.map((supplier) => (
+											<SelectItem
+												key={supplier.id}
+												value={supplier.id}
+											>
+												{supplier.name}
+											</SelectItem>
+										))}
+									</SelectContent>
+								</Select>
+							</FormControl>
 						</FormItem>
 					)}
 				/>
