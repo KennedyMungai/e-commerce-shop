@@ -1,5 +1,7 @@
 import { relations, sql } from 'drizzle-orm'
 import {
+	geometry,
+	index,
 	integer,
 	pgTable,
 	text,
@@ -84,6 +86,11 @@ export const order = pgTable('order', {
 		.references(() => product.id, { onDelete: 'cascade' })
 		.notNull(),
 	quantity: integer('quantity').default(0).notNull(),
+	location: geometry('location', {
+		type: 'point',
+		mode: 'xy',
+		srid: 4326
+	}).notNull(),
 	createdAt: timestamp('created_at').defaultNow().notNull(),
 	updatedAt: timestamp('updated_at').$onUpdate(() => new Date())
 })
