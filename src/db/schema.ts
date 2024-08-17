@@ -1,4 +1,4 @@
-import { relations } from 'drizzle-orm'
+import { relations, sql } from 'drizzle-orm'
 import {
 	integer,
 	pgTable,
@@ -57,39 +57,45 @@ export const categoryRelations = relations(category, ({ many }) => ({
 
 export const createCategory = createInsertSchema(category)
 
-// export const cart = pgTable('cart', {
-// 	id: uuid('id').defaultRandom().primaryKey(),
-// 	userId: varchar('user_id').notNull(),
-// 	productId: uuid('product_id')
-// 		.references(() => product.id, { onDelete: 'cascade' })
-// 		.notNull(),
-// 	quantity: integer('quantity').notNull(),
-// 	createdAt: timestamp('created_at').defaultNow().notNull(),
-// 	updatedAt: timestamp('updated_at').$onUpdate(() => new Date())
-// })
+export const cart = pgTable('cart', {
+	id: uuid('id').defaultRandom().primaryKey(),
+	userId: varchar('user_id').notNull(),
+	productId: uuid('product_id').references(() => product.id, {
+		onDelete: 'cascade'
+	}),
+	quantity: integer('quantity').default(0),
+	createdAt: timestamp('created_at').defaultNow().notNull(),
+	updatedAt: timestamp('updated_at').$onUpdate(() => new Date())
+})
 
-// export const cartRelations = relations(cart, ({ many }) => ({
-// 	cart: many(product)
-// }))
+export const cartRelations = relations(cart, ({ one }) => ({
+	product: one(product, {
+		fields: [cart.productId],
+		references: [product.id]
+	})
+}))
 
-// export const createCart = createInsertSchema(cart)
+export const createCart = createInsertSchema(cart)
 
-// export const order = pgTable('order', {
-// 	id: uuid('id').defaultRandom().primaryKey(),
-// 	userId: varchar('user_id').notNull(),
-// 	productId: uuid('product_id')
-// 		.references(() => product.id, { onDelete: 'cascade' })
-// 		.notNull(),
-// 	quantity: integer('quantity').notNull(),
-// 	createdAt: timestamp('created_at').defaultNow().notNull(),
-// 	updatedAt: timestamp('updated_at').$onUpdate(() => new Date())
-// })
+export const order = pgTable('order', {
+	id: uuid('id').defaultRandom().primaryKey(),
+	userId: varchar('user_id').notNull(),
+	productId: uuid('product_id')
+		.references(() => product.id, { onDelete: 'cascade' })
+		.notNull(),
+	quantity: integer('quantity').default(0).notNull(),
+	createdAt: timestamp('created_at').defaultNow().notNull(),
+	updatedAt: timestamp('updated_at').$onUpdate(() => new Date())
+})
 
-// export const orderRelations = relations(order, ({ many }) => ({
-// 	order: many(product)
-// }))
+export const orderRelations = relations(order, ({ one }) => ({
+	product: one(product, {
+		fields: [order.productId],
+		references: [product.id]
+	})
+}))
 
-// export const createOrder = createInsertSchema(order)
+export const createOrder = createInsertSchema(order)
 
 export const inventory = pgTable('inventory', {
 	id: uuid('id').defaultRandom().primaryKey(),
@@ -102,15 +108,24 @@ export const inventory = pgTable('inventory', {
 	supplierId: uuid('supplier_id')
 		.references(() => supplier.id, { onDelete: 'cascade' })
 		.notNull(),
-	quantity: integer('quantity').notNull(),
+	quantity: integer('quantity').default(0).notNull(),
 	createdAt: timestamp('created_at').defaultNow().notNull(),
 	updatedAt: timestamp('updated_at').$onUpdate(() => new Date())
 })
 
-export const inventoryRelations = relations(inventory, ({ many }) => ({
-	products: many(product),
-	suppliers: many(supplier),
-	category: many(category)
+export const inventoryRelations = relations(inventory, ({ one }) => ({
+	product: one(product, {
+		fields: [inventory.productId],
+		references: [product.id]
+	}),
+	supplier: one(supplier, {
+		fields: [inventory.supplierId],
+		references: [supplier.id]
+	}),
+	category: one(category, {
+		fields: [inventory.categoryId],
+		references: [category.id]
+	})
 }))
 
 export const createInventory = createInsertSchema(inventory)
@@ -141,7 +156,7 @@ export const productRating = pgTable('product_rating', {
 	productId: uuid('product_id')
 		.references(() => product.id, { onDelete: 'cascade' })
 		.notNull(),
-	rating: integer('rating').notNull()
+	rating: integer('rating').default(0).notNull()
 })
 
 export const productRatingRelations = relations(productRating, ({ one }) => ({
