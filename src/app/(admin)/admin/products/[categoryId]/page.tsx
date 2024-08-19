@@ -32,7 +32,7 @@ const CategoryPage = ({ params: { categoryId } }: Props) => {
 		isError: isCategoryError
 	} = useFetchCategory(categoryId)
 
-	if (isCategoryPending) {
+	if (isCategoryPending || isProductsPending) {
 		return (
 			<div>
 				<AdminTopbar title={'Loading'} isLoading={true} />
@@ -50,7 +50,7 @@ const CategoryPage = ({ params: { categoryId } }: Props) => {
 		)
 	}
 
-	if (isCategoryError) {
+	if (isCategoryError || isProductsError) {
 		return (
 			<div>
 				<AdminTopbar title={'Loading'} isLoading={true} />
