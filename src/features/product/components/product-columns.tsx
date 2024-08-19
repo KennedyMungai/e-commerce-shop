@@ -4,13 +4,15 @@ import { Button } from '@/components/ui/button'
 import { createProduct } from '@/db/schema'
 import { ColumnDef } from '@tanstack/react-table'
 import { ArrowUpDownIcon, UploadIcon } from 'lucide-react'
+import Image from 'next/image'
 import { z } from 'zod'
 
 const productSchema = createProduct.pick({
 	id: true,
 	name: true,
 	price: true,
-	quantity: true
+	quantity: true,
+	imageUrl: true
 })
 
 export type Product = z.input<typeof productSchema>
@@ -49,11 +51,20 @@ export const productColumns: ColumnDef<Product>[] = [
 		}
 	},
 	{
-		accessorKey: 'id',
+		accessorKey: 'imageUrl',
 		header: 'Upload Image',
 		cell: ({ row }) => (
 			<Button variant={'outline'} size='icon'>
-				<UploadIcon className='size-6' />
+				{row.getValue('imageUrl') ? (
+					<Image
+						src={row.getValue('imageUrl')}
+						width={40}
+						height={40}
+						alt='Product Image'
+					/>
+				) : (
+					<UploadIcon className='size-6' />
+				)}
 			</Button>
 		)
 	}
