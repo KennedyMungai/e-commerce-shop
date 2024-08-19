@@ -29,7 +29,7 @@ const SupplierInventory = ({ params: { supplierId } }: Props) => {
 
 	return (
 		<div>
-			<AdminTopbar title={supplier.name} />
+			<AdminTopbar title={`${supplier.name} Inventory`} />
 			<div className='p-4'>
 				<ScrollArea>
 					<DataTable
