@@ -43,15 +43,25 @@ const app = new Hono()
 
 			if (!auth?.userId) return c.json({ error: 'Unauthorized' }, 401)
 
-			const [data] = await db
-				.select({
-					id: supplier.id,
-					name: supplier.name,
-					email: supplier.email,
-					phoneNumber: supplier.phoneNumber
-				})
-				.from(supplier)
-				.where(eq(supplier.id, id))
+			const data = await db.query.supplier.findFirst({
+				columns: {
+					id: true,
+					name: true,
+					email: true,
+					phoneNumber: true
+				},
+				where: eq(supplier.id, id),
+				with: {
+					products: {
+						columns: {
+							id: true,
+							name: true,
+							price: true,
+							quantity: true
+						}
+					}
+				}
+			})
 
 			if (!data) return c.json({ error: 'Supplier not found' }, 404)
 
