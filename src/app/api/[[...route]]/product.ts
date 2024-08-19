@@ -7,6 +7,22 @@ import { Hono } from 'hono'
 import { z } from 'zod'
 
 const app = new Hono()
+	.get('/', clerkMiddleware(), async (c) => {
+		const auth = getAuth(c)
+
+		if (!auth?.userId) return c.json({ error: 'Not Authorized' }, 401)
+
+		const data = await db
+			.select({
+				id: product.id,
+				name: product.name,
+				price: product.price,
+				quantity: product.quantity
+			})
+			.from(product)
+
+		return c.json({ data })
+	})
 	.get(
 		'/category/:categoryId',
 		clerkMiddleware(),
@@ -21,7 +37,8 @@ const app = new Hono()
 				.select({
 					id: product.id,
 					name: product.name,
-					price: product.price
+					price: product.price,
+					quantity: product.quantity
 				})
 				.from(product)
 				.where(eq(product.categoryId, categoryId))
@@ -43,7 +60,8 @@ const app = new Hono()
 				.select({
 					id: product.id,
 					name: product.name,
-					price: product.price
+					price: product.price,
+					quantity: product.quantity
 				})
 				.from(product)
 				.where(eq(product.id, id))
@@ -90,13 +108,15 @@ const app = new Hono()
 				price: true,
 				description: true,
 				imageUrl: true,
-				name: true
+				name: true,
+				quantity: true
 			})
 		),
 		async (c) => {
 			const auth = getAuth(c)
 			const { id } = c.req.valid('param')
-			const { description, price, name, imageUrl } = c.req.valid('json')
+			const { description, price, name, imageUrl, quantity } =
+				c.req.valid('json')
 
 			if (!auth?.userId) return c.json({ error: 'Not Authorized' }, 401)
 
@@ -106,7 +126,8 @@ const app = new Hono()
 					description,
 					price,
 					name,
-					imageUrl
+					imageUrl,
+					quantity
 				})
 				.where(eq(product.id, id))
 				.returning({ id: product.id })
