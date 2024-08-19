@@ -9,7 +9,8 @@ import { z } from 'zod'
 const productSchema = createProduct.pick({
 	id: true,
 	name: true,
-	price: true
+	price: true,
+	quantity: true
 })
 
 export type Product = z.input<typeof productSchema>

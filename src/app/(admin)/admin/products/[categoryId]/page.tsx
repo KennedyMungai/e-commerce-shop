@@ -4,6 +4,7 @@ import AdminTopbar from '@/components/admin/admin-topbar'
 import { DataTable } from '@/components/data-table'
 import { Button } from '@/components/ui/button'
 import { ScrollArea } from '@/components/ui/scroll-area'
+import { Skeleton } from '@/components/ui/skeleton'
 import { useFetchCategory } from '@/features/category/api/use-fetch-category'
 import { useFetchProducts } from '@/features/product/api/use-fetch-products'
 import { productColumns } from '@/features/product/components/product-columns'
@@ -31,12 +32,40 @@ const CategoryPage = ({ params: { categoryId } }: Props) => {
 		isError: isCategoryError
 	} = useFetchCategory(categoryId)
 
-	if (isProductsPending || isCategoryPending) {
-		return <p>Loading...</p>
+	if (isCategoryPending) {
+		return (
+			<div>
+				<AdminTopbar title={'Loading'} isLoading={true} />
+				<div className='p-4 flex flex-col gap-y-4'>
+					<div className='w-full flex items-center justify-between'>
+						<Button variant={'outline'} onClick={onOpen} disabled>
+							Add Supplier
+						</Button>
+					</div>
+					<ScrollArea className='h-[80vh] p-4'>
+						<Skeleton className='w-[80vw] h-[70vh]' />
+					</ScrollArea>
+				</div>
+			</div>
+		)
 	}
 
-	if (isProductsError || isCategoryError) {
-		return <p>Error</p>
+	if (isCategoryError) {
+		return (
+			<div>
+				<AdminTopbar title={'Loading'} isLoading={true} />
+				<div className='p-4 flex flex-col gap-y-4'>
+					<div className='w-full flex items-center justify-between'>
+						<Button variant={'outline'} onClick={onOpen} disabled>
+							Add Supplier
+						</Button>
+					</div>
+					<ScrollArea className='h-[80vh] p-4'>
+						<Skeleton className='w-[80vw] h-[70vh]' />
+					</ScrollArea>
+				</div>
+			</div>
+		)
 	}
 
 	return (
