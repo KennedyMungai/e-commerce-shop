@@ -7,7 +7,7 @@ const OrdersPage = () => {
 	// if (isSuppliersLoading) {
 	// 	return (
 	// 		<div>
-	// 			<AdminTopbar title={'Loading'} isLoading={true} />
+	// 			<AdminTopbar title={'Loading...'} isLoading={true} />
 	// 			<div className='p-4 flex flex-col gap-y-4'>
 	// 				<div className='w-full flex items-center justify-between'>
 	// 					<Button variant={'outline'} onClick={onOpen} disabled>
@@ -25,7 +25,7 @@ const OrdersPage = () => {
 	// if (isSuppliersError) {
 	// 	return (
 	// 		<div>
-	// 			<AdminTopbar title={'Loading'} isLoading={true} />
+	// 			<AdminTopbar title={'Loading...'} isLoading={true} />
 	// 			<div className='p-4 flex flex-col gap-y-4'>
 	// 				<div className='w-full flex items-center justify-between'>
 	// 					<Button variant={'outline'} onClick={onOpen} disabled>

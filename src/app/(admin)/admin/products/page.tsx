@@ -21,7 +21,7 @@ const ProductsPage = () => {
 	if (isCategoriesPending) {
 		return (
 			<div>
-				<AdminTopbar title='Loading' isLoading={true} />
+				<AdminTopbar title='Loading...' isLoading={true} />
 				<div className='max-h-[85vh] flex items-center justify-center p-4'>
 					<ScrollArea className='h-[80vh] m-2 flex items-center justify-center'>
 						<div className='flex items-center justify-center gap-6 flex-wrap'>
@@ -47,7 +47,7 @@ const ProductsPage = () => {
 	if (isCategoriesError) {
 		return (
 			<div>
-				<AdminTopbar title='Loading' isLoading={true} />
+				<AdminTopbar title='Loading...' isLoading={true} />
 				<div className='max-h-[85vh] flex items-center justify-center p-4'>
 					<ScrollArea className='h-[80vh] m-2 flex items-center justify-center'>
 						<div className='flex items-center justify-center gap-6 flex-wrap'>
