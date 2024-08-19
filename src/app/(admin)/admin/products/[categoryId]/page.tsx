@@ -6,7 +6,7 @@ import { Button } from '@/components/ui/button'
 import { ScrollArea } from '@/components/ui/scroll-area'
 import { useFetchCategory } from '@/features/category/api/use-fetch-category'
 import { useFetchProducts } from '@/features/product/api/use-fetch-products'
-import { columns } from '@/features/product/components/columns'
+import { productColumns } from '@/features/product/components/product-columns'
 import ProductSheet from '@/features/product/components/product-sheet'
 import { useCreateProductSheet } from '@/features/product/hooks/use-create-product-sheet'
 
@@ -49,7 +49,7 @@ const CategoryPage = ({ params: { categoryId } }: Props) => {
 							Add Product
 						</Button>
 					</div>
-					<DataTable columns={columns} data={products} />
+					<DataTable columns={productColumns} data={products} />
 				</div>
 			</div>
 
