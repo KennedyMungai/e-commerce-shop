@@ -2,6 +2,7 @@
 
 import AdminTopbar from '@/components/admin/admin-topbar'
 import { ScrollArea } from '@/components/ui/scroll-area'
+import { Skeleton } from '@/components/ui/skeleton'
 import { useFetchCategories } from '@/features/category/api/use-fetch-categories'
 import AddCategoryCard from '@/features/category/components/add-category-card'
 import CategoryCard from '@/features/category/components/category-card'
@@ -13,9 +14,61 @@ const ProductsPage = () => {
 
 	const {
 		data: categories,
-		isLoading: isCategoriesLoading,
+		isError: isCategoriesError,
 		isPending: isCategoriesPending
 	} = useFetchCategories()
+
+	if (isCategoriesPending) {
+		return (
+			<div>
+				<AdminTopbar title='Loading' isLoading={true} />
+				<div className='max-h-[85vh] flex items-center justify-center p-4'>
+					<ScrollArea className='h-[80vh] m-2 flex items-center justify-center'>
+						<div className='flex items-center justify-center gap-6 flex-wrap'>
+							<Skeleton className='w-48 h-64' />
+							<Skeleton className='w-48 h-64' />
+							<Skeleton className='w-48 h-64' />
+							<Skeleton className='w-48 h-64' />
+							<Skeleton className='w-48 h-64' />
+							<Skeleton className='w-48 h-64' />
+							<Skeleton className='w-48 h-64' />
+							<Skeleton className='w-48 h-64' />
+							<Skeleton className='w-48 h-64' />
+							<Skeleton className='w-48 h-64' />
+							<Skeleton className='w-48 h-64' />
+							<Skeleton className='w-48 h-64' />
+						</div>
+					</ScrollArea>
+				</div>
+			</div>
+		)
+	}
+
+	if (isCategoriesError) {
+		return (
+			<div>
+				<AdminTopbar title='Loading' isLoading={true} />
+				<div className='max-h-[85vh] flex items-center justify-center p-4'>
+					<ScrollArea className='h-[80vh] m-2 flex items-center justify-center'>
+						<div className='flex items-center justify-center gap-6 flex-wrap'>
+							<Skeleton className='w-48 h-64' />
+							<Skeleton className='w-48 h-64' />
+							<Skeleton className='w-48 h-64' />
+							<Skeleton className='w-48 h-64' />
+							<Skeleton className='w-48 h-64' />
+							<Skeleton className='w-48 h-64' />
+							<Skeleton className='w-48 h-64' />
+							<Skeleton className='w-48 h-64' />
+							<Skeleton className='w-48 h-64' />
+							<Skeleton className='w-48 h-64' />
+							<Skeleton className='w-48 h-64' />
+							<Skeleton className='w-48 h-64' />
+						</div>
+					</ScrollArea>
+				</div>
+			</div>
+		)
+	}
 
 	return (
 		<>
