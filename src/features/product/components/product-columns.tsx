@@ -14,7 +14,7 @@ const productSchema = createProduct.pick({
 
 export type Product = z.input<typeof productSchema>
 
-export const columns: ColumnDef<Product>[] = [
+export const productColumns: ColumnDef<Product>[] = [
 	{
 		accessorKey: 'name',
 		header: ({ column }) => {
