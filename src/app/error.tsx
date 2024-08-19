@@ -17,8 +17,8 @@ export default function Error({
 
 	return (
 		<div className='flex flex-col items-center justify-center h-full bg-rose-500'>
-			<h2 className='text-2xl text-white dark:text-white font-semibold'>
-				Something went wrong!
+			<h2 className='text-2xl text-white dark:text-white font-semibold text-wrap'>
+				{error.message}
 			</h2>
 			<Button
 				className='bg-transparent text-white dark:text-white border-white dark:border-white mt-4'
