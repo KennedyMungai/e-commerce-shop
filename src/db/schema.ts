@@ -46,7 +46,7 @@ export const createProduct = createInsertSchema(product)
 
 export const category = pgTable('category', {
 	id: uuid('id').defaultRandom().primaryKey(),
-	categoryName: varchar('category_name', { length: 255 }).notNull(),
+	name: varchar('name', { length: 255 }).notNull(),
 	description: text('description').notNull(),
 	createdAt: timestamp('created_at').defaultNow().notNull(),
 	updatedAt: timestamp('updated_at').$onUpdate(() => new Date())
@@ -176,9 +176,9 @@ export const createProductRating = createInsertSchema(productRating)
 
 export const supplier = pgTable('supplier', {
 	id: uuid('id').defaultRandom().primaryKey(),
-	name: varchar('supplier_name', { length: 255 }).notNull(),
-	email: varchar('supplier_email', { length: 255 }).notNull(),
-	phoneNumber: varchar('supplier_phone_number', {
+	name: varchar('name', { length: 255 }).notNull(),
+	email: varchar('email', { length: 255 }).notNull(),
+	phoneNumber: varchar('phone_number', {
 		length: 13
 	}).notNull(),
 	createdAt: timestamp('created_at').defaultNow().notNull(),
