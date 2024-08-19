@@ -13,6 +13,7 @@ import { createInsertSchema } from 'drizzle-zod'
 export const product = pgTable('product', {
 	id: uuid('id').defaultRandom().primaryKey(),
 	name: varchar('name', { length: 255 }).notNull(),
+	quantity: integer('quantity').default(0).notNull(),
 	categoryId: uuid('category_id')
 		.references(() => category.id, { onDelete: 'cascade' })
 		.notNull(),
@@ -32,10 +33,6 @@ export const productRelations = relations(product, ({ many, one }) => ({
 		references: [category.id]
 	}),
 	comments: many(comment),
-	inventory: one(inventory, {
-		fields: [product.id],
-		references: [inventory.productId]
-	}),
 	supplier: one(supplier, {
 		fields: [product.supplierId],
 		references: [supplier.id]
@@ -103,38 +100,6 @@ export const orderRelations = relations(order, ({ one }) => ({
 
 export const createOrder = createInsertSchema(order)
 
-export const inventory = pgTable('inventory', {
-	id: uuid('id').defaultRandom().primaryKey(),
-	productId: uuid('product_id')
-		.references(() => product.id, { onDelete: 'cascade' })
-		.notNull(),
-	categoryId: uuid('category_id')
-		.references(() => category.id, { onDelete: 'cascade' })
-		.notNull(),
-	supplierId: uuid('supplier_id')
-		.references(() => supplier.id, { onDelete: 'cascade' })
-		.notNull(),
-	quantity: integer('quantity').default(0).notNull(),
-	createdAt: timestamp('created_at').defaultNow().notNull(),
-	updatedAt: timestamp('updated_at').$onUpdate(() => new Date())
-})
-
-export const inventoryRelations = relations(inventory, ({ one }) => ({
-	product: one(product, {
-		fields: [inventory.productId],
-		references: [product.id]
-	}),
-	supplier: one(supplier, {
-		fields: [inventory.supplierId],
-		references: [supplier.id]
-	}),
-	category: one(category, {
-		fields: [inventory.categoryId],
-		references: [category.id]
-	})
-}))
-
-export const createInventory = createInsertSchema(inventory)
 
 export const comment = pgTable('comment', {
 	id: uuid('id').defaultRandom().primaryKey(),
