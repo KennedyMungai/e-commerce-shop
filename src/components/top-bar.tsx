@@ -32,6 +32,7 @@ const TopBar = () => {
 				/>
 			</div>
 			<div className='flex gap-4 items-center justify-center'>
+				{/* TODO: Add cart button here */}
 				<ClerkLoading>
 					<Loader2Icon className='size-6 animate-spin' />
 				</ClerkLoading>
