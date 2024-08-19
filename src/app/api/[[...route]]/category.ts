@@ -73,14 +73,24 @@ const app = new Hono()
 
 			if (!auth?.userId) return c.json({ error: 'Not Authorized' }, 401)
 
-			const [data] = await db
-				.select({
-					id: category.id,
-					name: category.name,
-					description: category.description
-				})
-				.from(category)
-				.where(eq(category.id, id))
+			const data = await db.query.category.findFirst({
+				columns: {
+					id: true,
+					name: true,
+					description: true
+				},
+				where: eq(category.id, id),
+				with: {
+					products: {
+						columns: {
+							id: true,
+							name: true,
+							price: true,
+							quantity: true
+						}
+					}
+				}
+			})
 
 			if (!data) return c.json({ error: 'Category not found' }, 404)
 
