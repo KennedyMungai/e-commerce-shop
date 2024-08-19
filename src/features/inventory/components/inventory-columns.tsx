@@ -17,7 +17,7 @@ const productSchema = createProduct.omit({
 
 export type Product = z.input<typeof productSchema>
 
-export const SuppliersInventoryColumns: ColumnDef<Product>[] = [
+export const inventoryColumns: ColumnDef<Product>[] = [
 	{
 		accessorKey: 'name',
 		header: ({ column }) => {

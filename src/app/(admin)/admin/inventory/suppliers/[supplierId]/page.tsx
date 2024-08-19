@@ -3,7 +3,7 @@
 import AdminTopbar from '@/components/admin/admin-topbar'
 import { DataTable } from '@/components/data-table'
 import { ScrollArea } from '@/components/ui/scroll-area'
-import { SuppliersInventoryColumns } from '@/features/inventory/components/suppliers-inventory-columns'
+import { inventoryColumns } from '@/features/inventory/components/inventory-columns'
 import { useFetchSupplier } from '@/features/supplier/api/use-fetch-supplier'
 
 type Props = {
@@ -33,7 +33,7 @@ const SupplierInventory = ({ params: { supplierId } }: Props) => {
 			<div className='p-4'>
 				<ScrollArea>
 					<DataTable
-						columns={SuppliersInventoryColumns}
+						columns={inventoryColumns}
 						data={supplier.products}
 					/>
 				</ScrollArea>
