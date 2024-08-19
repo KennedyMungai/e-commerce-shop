@@ -13,21 +13,21 @@ const app = new Hono()
 		zValidator(
 			'json',
 			createCategory.pick({
-				categoryName: true,
+				name: true,
 				description: true
 			})
 		),
 		async (c) => {
 			const auth = getAuth(c)
 
-			const { categoryName, description } = c.req.valid('json')
+			const { name, description } = c.req.valid('json')
 
 			if (!auth?.userId) return c.json({ error: 'Not Authorized' }, 401)
 
 			const [data] = await db
 				.insert(category)
 				.values({
-					categoryName,
+					name,
 					description
 				})
 				.returning()
@@ -46,7 +46,7 @@ const app = new Hono()
 		const data = await db
 			.select({
 				id: category.id,
-				name: category.categoryName,
+				name: category.name,
 				description: category.description
 			})
 			.from(category)
@@ -66,7 +66,7 @@ const app = new Hono()
 			const [data] = await db
 				.select({
 					id: category.id,
-					name: category.categoryName,
+					name: category.name,
 					description: category.description
 				})
 				.from(category)
@@ -83,18 +83,18 @@ const app = new Hono()
 		zValidator('param', z.object({ id: z.string() })),
 		zValidator(
 			'json',
-			createCategory.pick({ categoryName: true, description: true })
+			createCategory.pick({ name: true, description: true })
 		),
 		async (c) => {
 			const auth = getAuth(c)
 			const { id } = c.req.valid('param')
-			const { categoryName, description } = c.req.valid('json')
+			const { name, description } = c.req.valid('json')
 
 			if (!auth?.userId) return c.json({ error: 'Not Authorized' }, 401)
 
 			const [data] = await db
 				.update(category)
-				.set({ categoryName, description })
+				.set({ name, description })
 				.where(eq(category.id, id))
 				.returning()
 
