@@ -20,7 +20,7 @@ import { useForm } from 'react-hook-form'
 import { z } from 'zod'
 
 const formSchema = createCategory.pick({
-	categoryName: true,
+	name: true,
 	description: true
 })
 
@@ -34,7 +34,7 @@ const CategoryForm = () => {
 	const form = useForm<FormValues>({
 		resolver: zodResolver(formSchema),
 		defaultValues: {
-			categoryName: '',
+			name: '',
 			description: ''
 		}
 	})
@@ -52,7 +52,7 @@ const CategoryForm = () => {
 			<form onSubmit={form.handleSubmit(onSubmit)} className='space-y-8'>
 				<FormField
 					control={form.control}
-					name='categoryName'
+					name='name'
 					render={({ field }) => (
 						<FormItem>
 							<FormLabel>Category Name</FormLabel>
