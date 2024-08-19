@@ -24,7 +24,8 @@ const app = new Hono()
 					columns: {
 						id: true,
 						name: true,
-						price: true
+						price: true,
+						quantity: true
 					}
 				}
 			}
