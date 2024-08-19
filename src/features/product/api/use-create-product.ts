@@ -17,7 +17,9 @@ export const useCreateProduct = () => {
 		},
 		onSuccess: () => {
 			toast.success('Product created successfully')
-			queryClient.invalidateQueries({ queryKey: ['products'] })
+			queryClient.invalidateQueries({
+				queryKey: ['products', 'all_products']
+			})
 		},
 		onError: () => toast.error('Failed to create product')
 	})
