@@ -51,6 +51,18 @@ export const productColumns: ColumnDef<Product>[] = [
 		}
 	},
 	{
+		accessorKey: 'imageUrl',
+		header: 'Image',
+		cell: ({ row }) => (
+			<Image
+				src={row.getValue('imageUrl')}
+				width={40}
+				height={40}
+				alt='Product Image'
+			/>
+		)
+	},
+	{
 		accessorKey: 'id',
 		header: 'Upload Image',
 		cell: ({ row }) => (
