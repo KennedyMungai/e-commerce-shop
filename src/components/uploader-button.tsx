@@ -1,6 +1,7 @@
+import { useEditProduct } from '@/features/product/api/use-edit-product'
+import { useFetchProduct } from '@/features/product/api/use-fetch-product'
 import { useUploadThing } from '@/utils/uploadthing'
 import { LoaderIcon, UploadIcon } from 'lucide-react'
-import { useRouter } from 'next/navigation'
 import { ChangeEvent } from 'react'
 import { toast } from 'sonner'
 
@@ -30,7 +31,18 @@ const useUploadThingInputProps = (...args: Input) => {
 	}
 }
 
-export const UploaderButton = () => {
+type Props = {
+	id: string
+}
+
+export const UploaderButton = ({ id }: Props) => {
+	const { mutate } = useEditProduct(id)
+	const {
+		data: product,
+		isPending: isProductPending,
+		isError: isProductError
+	} = useFetchProduct(id)
+
 	const { inputProps } = useUploadThingInputProps('imageUploader', {
 		onUploadBegin: () => {
 			toast(
@@ -47,7 +59,14 @@ export const UploaderButton = () => {
 			toast.dismiss('upload-begin')
 			toast.error('Upload failed. Please try again.')
 		},
-		onClientUploadComplete: () => {
+		onClientUploadComplete: (res: any) => {
+			if (!product) return
+
+			mutate({
+				...product,
+				imageUrl: res[0].url
+			})
+
 			toast.dismiss('upload-begin')
 			toast.success('Upload complete!')
 		}

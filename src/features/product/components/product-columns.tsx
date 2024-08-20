@@ -1,18 +1,18 @@
 'use client'
 
 import { Button } from '@/components/ui/button'
+import { UploaderButton } from '@/components/uploader-button'
 import { createProduct } from '@/db/schema'
 import { ColumnDef } from '@tanstack/react-table'
-import { ArrowUpDownIcon, UploadIcon } from 'lucide-react'
+import { ArrowUpDownIcon } from 'lucide-react'
 import Image from 'next/image'
 import { z } from 'zod'
 
-const productSchema = createProduct.pick({
-	id: true,
-	name: true,
-	price: true,
-	quantity: true,
-	imageUrl: true
+const productSchema = createProduct.omit({
+	createdAt: true,
+	updatedAt: true,
+	categoryId: true,
+	supplierId: true
 })
 
 export type Product = z.input<typeof productSchema>
@@ -51,7 +51,7 @@ export const productColumns: ColumnDef<Product>[] = [
 		}
 	},
 	{
-		accessorKey: 'imageUrl',
+		accessorKey: 'id',
 		header: 'Upload Image',
 		cell: ({ row }) => (
 			<Button variant={'outline'} size='icon'>
@@ -63,7 +63,7 @@ export const productColumns: ColumnDef<Product>[] = [
 						alt='Product Image'
 					/>
 				) : (
-					<UploadIcon className='size-6' />
+					<UploaderButton id={row.getValue('id')} />
 				)}
 			</Button>
 		)

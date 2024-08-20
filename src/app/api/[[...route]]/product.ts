@@ -63,7 +63,9 @@ const app = new Hono()
 					id: product.id,
 					name: product.name,
 					price: product.price,
-					quantity: product.quantity
+					quantity: product.quantity,
+					description: product.description,
+					imageUrl: product.imageUrl
 				})
 				.from(product)
 				.where(eq(product.id, id))
