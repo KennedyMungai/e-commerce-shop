@@ -17,17 +17,21 @@ export const useEditProduct = (id: string) => {
 	const mutation = useMutation<ResponseType, Error, RequestType>({
 		mutationKey: ['editProduct', { id }],
 		mutationFn: async (json) => {
-			const response = await client.api.product[':id'].$patch({
+			const response = await client.api.product[':id']['$patch']({
+				json,
 				param: {
 					id
-				},
-				json
+				}
 			})
+
 			return await response.json()
 		},
 		onSuccess: () => {
 			queryClient.invalidateQueries({
-				queryKey: ['products', 'all_products']
+				queryKey: ['products']
+			})
+			queryClient.invalidateQueries({
+				queryKey: ['all_products']
 			}),
 				toast.success('Product updated successfully')
 		},
