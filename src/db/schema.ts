@@ -22,7 +22,7 @@ export const product = pgTable('product', {
 		.notNull(),
 	description: text('description').notNull(),
 	price: varchar('price').notNull(),
-	imageUrl: varchar('image_url', { length: 512 }).notNull(),
+	imageUrl: varchar('image_url', { length: 512 }),
 	createdAt: timestamp('created_at').defaultNow().notNull(),
 	updatedAt: timestamp('updated_at').$onUpdate(() => new Date())
 })
