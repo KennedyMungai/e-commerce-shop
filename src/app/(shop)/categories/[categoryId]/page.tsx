@@ -37,7 +37,7 @@ const CategoryPage = ({ params: { categoryId } }: Props) => {
 							imageUrl={item.imageUrl!}
 							name={item.name}
 							description={item.description}
-							href={`/shop/${categoryId}/productDetail/${item.id}`}
+							href={`/categories/${categoryId}/productDetail/${item.id}`}
 						/>
 					))}
 			</div>
