@@ -19,6 +19,7 @@
 			"tanstack",
 			"Topbar",
 			"trpc",
+			"utfs",
 			"zustand"
 		]
 	}
