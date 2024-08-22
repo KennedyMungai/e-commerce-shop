@@ -7,6 +7,7 @@ import { Loader2Icon } from 'lucide-react'
 import Image from 'next/image'
 import Link from 'next/link'
 import { useState } from 'react'
+import Cart from '@/components/cart'
 
 type Props = {}
 
@@ -32,7 +33,7 @@ const TopBar = () => {
 				/>
 			</div>
 			<div className='flex gap-4 items-center justify-center'>
-				{/* TODO: Add cart button here */}
+				<Cart />
 				<ClerkLoading>
 					<Loader2Icon className='size-6 animate-spin' />
 				</ClerkLoading>
