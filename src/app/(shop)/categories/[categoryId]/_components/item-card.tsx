@@ -14,7 +14,7 @@ type Props = {
 const ItemCard = ({ description, imageUrl, name, href }: Props) => {
 	return (
 		<Link href={href}>
-			<Card className='w-60 h-80 rounded-md'>
+			<Card className='w-60 h-80 rounded-md bg-white'>
 				<CardContent className='pb-2 px-0'>
 					<Image
 						src={imageUrl}
@@ -23,7 +23,9 @@ const ItemCard = ({ description, imageUrl, name, href }: Props) => {
 						height={300}
 						className='rounded-md object-contain relative'
 					/>
-					<p className='text-lg font-semibold text-center'>{name}</p>
+					<p className='text-lg font-semibold text-center text-black'>
+						{name}
+					</p>
 					<p className='text-xs text-muted-foreground text-center'>
 						{description}
 					</p>
