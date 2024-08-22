@@ -87,7 +87,8 @@ const app = new Hono()
 							name: true,
 							price: true,
 							quantity: true,
-							imageUrl: true
+							imageUrl: true,
+							description: true
 						}
 					}
 				}
