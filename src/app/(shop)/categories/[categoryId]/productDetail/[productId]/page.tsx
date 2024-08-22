@@ -2,7 +2,7 @@
 
 import { Button } from '@/components/ui/button'
 import { useFetchProduct } from '@/features/product/api/use-fetch-product'
-import { ShoppingCartIcon } from 'lucide-react'
+import { HeartIcon, ShoppingCartIcon } from 'lucide-react'
 import Image from 'next/image'
 
 type Props = {
@@ -36,13 +36,23 @@ const ProductPage = ({ params: { productId } }: Props) => {
 					height={500}
 					className='rounded-md object-contain'
 				/>
+				<div className='absolute bottom-4 flex gap-2 items-center justify-center'>
+					<Button
+						size='icon'
+						variant={'outline'}
+						className='bg-transparent border-none text-black'
+					>
+						<HeartIcon />
+					</Button>
+					<p className='text-rose-500'>Add to wishlist</p>
+				</div>
 			</div>
 			<div className='h-full w-full flex flex-col items-center justify-center p-4'>
 				<p className='text-3xl font-semibold'>{product.name}</p>
 				<p className='text-neutral-600 dark:text-neutral-300'>
 					{product.description}
 				</p>
-				<Button className=' absolute bottom-2 animate-bounce hover:animate-none'>
+				<Button className=' absolute bottom-4 animate-bounce hover:animate-none'>
 					<ShoppingCartIcon className='mr-4' />
 					Add To Cart
 				</Button>
