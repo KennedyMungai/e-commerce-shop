@@ -60,7 +60,7 @@ const Sidebar = () => {
 			</p>
 			<div className='flex flex-col gap-y-2 py-2 overflow-y-auto'>
 				{categories?.map((category) => (
-					<Link key={category.id} href={`/${category.id}`}>
+					<Link key={category.id} href={`/categories/${category.id}`}>
 						<Button
 							variant={
 								route === category.id ? 'default' : 'outline'
