@@ -155,3 +155,22 @@ export const supplierRelations = relations(supplier, ({ many }) => ({
 }))
 
 export const createSupplier = createInsertSchema(supplier)
+
+export const wishList = pgTable('wish_list', {
+	id: uuid('id').defaultRandom().primaryKey(),
+	userId: varchar('user_id').notNull(),
+	productId: uuid('product_id')
+		.references(() => product.id, { onDelete: 'cascade' })
+		.notNull(),
+	createdAt: timestamp('created_at').defaultNow().notNull(),
+	updatedAt: timestamp('updated_at').$onUpdate(() => new Date())
+})
+
+export const wishListRelations = relations(wishList, ({ one }) => ({
+	product: one(product, {
+		fields: [wishList.productId],
+		references: [product.id]
+	})
+}))
+
+export const createWishList = createInsertSchema(wishList)
