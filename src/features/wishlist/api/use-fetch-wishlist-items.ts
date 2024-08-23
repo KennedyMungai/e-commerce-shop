@@ -1,7 +1,7 @@
 import { client } from '@/lib/hono'
 import { useQuery } from '@tanstack/react-query'
 
-const useFetchWishlistItems = () =>
+export const useFetchWishlistItems = () =>
 	useQuery({
 		queryKey: ['wishlistItems'],
 		queryFn: async () => {

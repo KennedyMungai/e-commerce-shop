@@ -3,11 +3,12 @@
 import { ModeToggle } from '@/components/mode-toggle'
 import { Input } from '@/components/ui/input'
 import { ClerkLoaded, ClerkLoading, UserButton } from '@clerk/nextjs'
-import { Loader2Icon } from 'lucide-react'
+import { HeartIcon, Loader2Icon } from 'lucide-react'
 import Image from 'next/image'
 import Link from 'next/link'
 import { useState } from 'react'
 import Cart from '@/components/cart'
+import { Button } from './ui/button'
 
 type Props = {}
 
@@ -34,6 +35,11 @@ const TopBar = () => {
 			</div>
 			<div className='flex gap-4 items-center justify-center'>
 				<Cart />
+				<Link href='/wishlist'>
+					<Button variant={'ghost'} size={'icon'}>
+						<HeartIcon className='size-4' />
+					</Button>
+				</Link>
 				<ClerkLoading>
 					<Loader2Icon className='size-6 animate-spin' />
 				</ClerkLoading>
