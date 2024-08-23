@@ -29,7 +29,9 @@ const CartForm = ({ productId }: Props) => {
 	})
 
 	const onSubmit = (values: CartSchema) => {
-		mutate(values, { onSuccess: () => form.reset() })
+		mutate(values)
+
+		form.reset()
 	}
 
 	return (
