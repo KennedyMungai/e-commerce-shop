@@ -50,7 +50,8 @@ const HomePage = () => {
 	}
 
 	return (
-		<div className='container h-full'>
+		<div className='container h-full overflow-y-auto'>
+			<h1 className='text-3xl font-semibold mb-4'>All items</h1>
 			<div className='grid grid-cols-3 gap-4'>
 				{products
 					.filter((item) => item.imageUrl !== '')

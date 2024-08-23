@@ -19,7 +19,7 @@ const CategoryPage = ({ params: { categoryId } }: Props) => {
 
 	if (isCategoryPending) {
 		return (
-			<div>
+			<div className='h-full overflow-y-auto'>
 				<h1 className='text-3xl font-semibold mb-4 animate-pulse'>
 					Loading...
 				</h1>
@@ -38,7 +38,7 @@ const CategoryPage = ({ params: { categoryId } }: Props) => {
 
 	if (isCategoryError) {
 		return (
-			<div>
+			<div className='h-full overflow-y-auto'>
 				<h1 className='text-3xl font-semibold mb-4 animate-pulse'>
 					Loading...
 				</h1>
@@ -56,7 +56,7 @@ const CategoryPage = ({ params: { categoryId } }: Props) => {
 	}
 
 	return (
-		<div>
+		<div className='p-2 overflow-y-auto h-full'>
 			<h1 className='text-3xl font-semibold mb-4'>{category.name}</h1>
 			<div className='grid grid-cols-3 gap-4'>
 				{category.products
