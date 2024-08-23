@@ -2,10 +2,16 @@
 
 import { Separator } from '@/components/ui/separator'
 import { useFetchCartItems } from '@/features/cart/api/use-fetch-cart-items'
+import dynamic from 'next/dynamic'
 import Image from 'next/image'
-import { Fragment } from 'react'
+import { Fragment, useMemo } from 'react'
 
 const CheckoutPage = () => {
+	const Map = useMemo(
+		() => dynamic(() => import('@/components/my-map'), { ssr: false }),
+		[]
+	)
+
 	const {
 		data: cartItems,
 		isPending: isCartItemsPending,
@@ -45,7 +51,9 @@ const CheckoutPage = () => {
 				))}
 			</div>
 			<div className='h-full grid grid-rows-2'>
-				<div className='h-full bg-rose-500'></div>
+				<div className='h-full'>
+					<Map />
+				</div>
 				<div className='h-full bg-teal-500'></div>
 			</div>
 		</div>
