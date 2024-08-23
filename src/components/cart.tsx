@@ -11,6 +11,7 @@ import { ShoppingCartIcon } from 'lucide-react'
 import { Fragment } from 'react'
 import { Separator } from '@/components/ui/separator'
 import Image from 'next/image'
+import Link from 'next/link'
 
 type Props = {}
 
@@ -52,9 +53,11 @@ const Cart = () => {
 						<Separator />
 					</Fragment>
 				))}
-				<Button className='absolute bottom-0 right-0 left-0'>
-					Go to Checkout
-				</Button>
+				<Link href='/checkout'>
+					<Button className='absolute bottom-0 right-0 left-0'>
+						Go to Checkout
+					</Button>
+				</Link>
 			</PopoverContent>
 		</Popover>
 	)
