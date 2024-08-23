@@ -1,11 +1,9 @@
 'use client'
 
-import { Button } from '@/components/ui/button'
 import { Skeleton } from '@/components/ui/skeleton'
-import WishlistItem from '@/components/wishlist-item'
 import CartForm from '@/features/cart/components/cart-form'
 import { useFetchProduct } from '@/features/product/api/use-fetch-product'
-import { HeartIcon } from 'lucide-react'
+import WishlistItem from '@/features/wishlist/components/wishlist-item'
 import Image from 'next/image'
 
 type Props = {
