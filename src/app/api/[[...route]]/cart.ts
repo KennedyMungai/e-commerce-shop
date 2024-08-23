@@ -12,10 +12,21 @@ const app = new Hono()
 
 		if (!auth?.userId) return c.json({ error: 'Not Authorized' }, 401)
 
-		const data = await db
-			.select()
-			.from(cart)
-			.where(eq(cart.userId, auth?.userId))
+		const data = await db.query.cart.findMany({
+			columns: {
+				id: true,
+				quantity: true
+			},
+			with: {
+				product: {
+					columns: {
+						name: true,
+						price: true
+					}
+				}
+			},
+			where: eq(cart.userId, auth.userId)
+		})
 
 		return c.json({ data })
 	})
@@ -33,13 +44,13 @@ const app = new Hono()
 		),
 		async (c) => {
 			const auth = getAuth(c)
-			const { productId, quantity } = c.req.valid('json')
+			const { quantity, productId } = c.req.valid('json')
 
 			if (!auth?.userId) return c.json({ error: 'Not Authorized' }, 401)
 
 			const [data] = await db
 				.insert(cart)
-				.values({ userId: auth.userId, productId, quantity })
+				.values({ userId: auth?.userId, quantity, productId })
 				.returning()
 
 			if (!data)

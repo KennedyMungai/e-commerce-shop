@@ -62,7 +62,7 @@ export const cart = pgTable('cart', {
 	id: uuid('id').defaultRandom().primaryKey(),
 	userId: varchar('user_id').notNull(),
 	quantity: integer('quantity').default(0),
-	product: uuid('product_id')
+	productId: uuid('product_id')
 		.references(() => product.id, { onDelete: 'cascade' })
 		.notNull(),
 	createdAt: timestamp('created_at').defaultNow().notNull(),
@@ -71,7 +71,7 @@ export const cart = pgTable('cart', {
 
 export const cartRelations = relations(cart, ({ one }) => ({
 	product: one(product, {
-		fields: [cart.product],
+		fields: [cart.productId],
 		references: [product.id]
 	})
 }))
