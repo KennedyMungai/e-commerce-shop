@@ -21,7 +21,8 @@ const app = new Hono()
 				product: {
 					columns: {
 						name: true,
-						price: true
+						price: true,
+						imageUrl: true
 					}
 				}
 			},
