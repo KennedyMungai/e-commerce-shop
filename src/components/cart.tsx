@@ -38,7 +38,7 @@ const Cart = () => {
 					<ShoppingCartIcon />
 				</Button>
 			</PopoverTrigger>
-			<PopoverContent className='w-56 h-96 overflow-y-auto p-2 pb-6'>
+			<PopoverContent className='w-64 h-96 overflow-y-auto p-2 pb-6'>
 				{cartItems?.map((item) => (
 					<Fragment key={item.id}>
 						<div className='h-10 flex text-sm items-center py-2'>
@@ -47,11 +47,14 @@ const Cart = () => {
 								width={40}
 								height={40}
 								alt={item.product.name}
+								className='mr-2'
 							/>
-							{item.product.name} -{' '}
-							{Number(item.product.price) * item.quantity!}
+							<div>
+								{item.product.name} -{' '}
+								{Number(item.product.price) * item.quantity!}
+							</div>
 						</div>
-						<Separator />
+						<Separator className='my-3' />
 					</Fragment>
 				))}
 				<PopoverClose asChild>
