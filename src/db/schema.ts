@@ -20,6 +20,13 @@ export const product = pgTable('product', {
 	supplierId: uuid('supplier_id')
 		.references(() => supplier.id, { onDelete: 'cascade' })
 		.notNull(),
+	cartId: uuid('cart_id').references(() => cart.id, { onDelete: 'cascade' }),
+	wishListId: uuid('wish_list_id').references(() => wishList.id, {
+		onDelete: 'cascade'
+	}),
+	orderId: uuid('order_id').references(() => order.id, {
+		onDelete: 'cascade'
+	}),
 	description: text('description').notNull(),
 	price: varchar('price').notNull(),
 	imageUrl: varchar('image_url', { length: 512 }),
@@ -58,19 +65,13 @@ export const createCategory = createInsertSchema(category)
 export const cart = pgTable('cart', {
 	id: uuid('id').defaultRandom().primaryKey(),
 	userId: varchar('user_id').notNull(),
-	productId: uuid('product_id').references(() => product.id, {
-		onDelete: 'cascade'
-	}),
 	quantity: integer('quantity').default(0),
 	createdAt: timestamp('created_at').defaultNow().notNull(),
 	updatedAt: timestamp('updated_at').$onUpdate(() => new Date())
 })
 
-export const cartRelations = relations(cart, ({ one }) => ({
-	product: one(product, {
-		fields: [cart.productId],
-		references: [product.id]
-	})
+export const cartRelations = relations(cart, ({ many }) => ({
+	product: many(product)
 }))
 
 export const createCart = createInsertSchema(cart)
@@ -78,9 +79,6 @@ export const createCart = createInsertSchema(cart)
 export const order = pgTable('order', {
 	id: uuid('id').defaultRandom().primaryKey(),
 	userId: varchar('user_id').notNull(),
-	productId: uuid('product_id')
-		.references(() => product.id, { onDelete: 'cascade' })
-		.notNull(),
 	quantity: integer('quantity').default(0).notNull(),
 	location: geometry('location', {
 		type: 'point',
@@ -91,15 +89,11 @@ export const order = pgTable('order', {
 	updatedAt: timestamp('updated_at').$onUpdate(() => new Date())
 })
 
-export const orderRelations = relations(order, ({ one }) => ({
-	product: one(product, {
-		fields: [order.productId],
-		references: [product.id]
-	})
+export const orderRelations = relations(order, ({ many }) => ({
+	product: many(product)
 }))
 
 export const createOrder = createInsertSchema(order)
-
 
 export const comment = pgTable('comment', {
 	id: uuid('id').defaultRandom().primaryKey(),
@@ -159,18 +153,12 @@ export const createSupplier = createInsertSchema(supplier)
 export const wishList = pgTable('wish_list', {
 	id: uuid('id').defaultRandom().primaryKey(),
 	userId: varchar('user_id').notNull(),
-	productId: uuid('product_id')
-		.references(() => product.id, { onDelete: 'cascade' })
-		.notNull(),
 	createdAt: timestamp('created_at').defaultNow().notNull(),
 	updatedAt: timestamp('updated_at').$onUpdate(() => new Date())
 })
 
-export const wishListRelations = relations(wishList, ({ one }) => ({
-	product: one(product, {
-		fields: [wishList.productId],
-		references: [product.id]
-	})
+export const wishListRelations = relations(wishList, ({ many }) => ({
+	product: many(product)
 }))
 
 export const createWishList = createInsertSchema(wishList)
