@@ -20,9 +20,6 @@ export const product = pgTable('product', {
 	supplierId: uuid('supplier_id')
 		.references(() => supplier.id, { onDelete: 'cascade' })
 		.notNull(),
-	orderId: uuid('order_id').references(() => order.id, {
-		onDelete: 'cascade'
-	}),
 	description: text('description').notNull(),
 	price: varchar('price').notNull(),
 	imageUrl: varchar('image_url', { length: 512 }),
@@ -39,6 +36,10 @@ export const productRelations = relations(product, ({ many, one }) => ({
 	supplier: one(supplier, {
 		fields: [product.supplierId],
 		references: [supplier.id]
+	}),
+	order: one(order, {
+		fields: [product.id],
+		references: [order.productId]
 	})
 }))
 
@@ -81,7 +82,11 @@ export const createCart = createInsertSchema(cart)
 export const order = pgTable('order', {
 	id: uuid('id').defaultRandom().primaryKey(),
 	userId: varchar('user_id').notNull(),
-	quantity: integer('quantity').default(0).notNull(),
+	productId: uuid('product_id')
+		.references(() => product.id, { onDelete: 'cascade' })
+		.notNull()
+		.unique(), // Ensure one-to-one relationship
+	quantity: integer('quantity').default(1).notNull(),
 	location: geometry('location', {
 		type: 'point',
 		mode: 'xy',
@@ -91,8 +96,11 @@ export const order = pgTable('order', {
 	updatedAt: timestamp('updated_at').$onUpdate(() => new Date())
 })
 
-export const orderRelations = relations(order, ({ many }) => ({
-	product: many(product)
+export const orderRelations = relations(order, ({ one }) => ({
+	product: one(product, {
+		fields: [order.productId],
+		references: [product.id]
+	})
 }))
 
 export const createOrder = createInsertSchema(order)
