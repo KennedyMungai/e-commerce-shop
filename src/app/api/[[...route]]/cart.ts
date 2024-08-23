@@ -7,24 +7,18 @@ import { Hono } from 'hono'
 import { z } from 'zod'
 
 const app = new Hono()
-	.get(
-		'/:userId',
-		clerkMiddleware(),
-		zValidator('param', z.object({ userId: z.string() })),
-		async (c) => {
-			const auth = getAuth(c)
-			const { userId } = c.req.valid('param')
+	.get('/', clerkMiddleware(), async (c) => {
+		const auth = getAuth(c)
 
-			if (!auth?.userId) return c.json({ error: 'Not Authorized' }, 401)
+		if (!auth?.userId) return c.json({ error: 'Not Authorized' }, 401)
 
-			const data = await db
-				.select()
-				.from(cart)
-				.where(eq(cart.userId, userId))
+		const data = await db
+			.select()
+			.from(cart)
+			.where(eq(cart.userId, auth?.userId))
 
-			return c.json({ data })
-		}
-	)
+		return c.json({ data })
+	})
 	.post(
 		'/',
 		clerkMiddleware(),
