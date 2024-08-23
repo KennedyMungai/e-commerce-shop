@@ -19,7 +19,10 @@ export const useAddToCart = () => {
 
 			return await response.json()
 		},
-		onSuccess: () => toast.success('Item added to cart'),
+		onSuccess: () => {
+			toast.success('Item added to cart')
+			queryClient.invalidateQueries({ queryKey: ['cartItems'] })
+		},
 		onError: () => toast.error('Failed to add item to cart')
 	})
 
