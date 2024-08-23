@@ -3,6 +3,7 @@
 import { Button } from '@/components/ui/button'
 import {
 	Popover,
+	PopoverClose,
 	PopoverContent,
 	PopoverTrigger
 } from '@/components/ui/popover'
@@ -53,11 +54,13 @@ const Cart = () => {
 						<Separator />
 					</Fragment>
 				))}
-				<Link href='/checkout'>
-					<Button className='absolute bottom-0 right-0 left-0'>
-						Go to Checkout
-					</Button>
-				</Link>
+				<PopoverClose asChild>
+					<Link href='/checkout'>
+						<Button className='absolute bottom-0 left-0 right-0'>
+							Go to Checkout
+						</Button>
+					</Link>
+				</PopoverClose>
 			</PopoverContent>
 		</Popover>
 	)
