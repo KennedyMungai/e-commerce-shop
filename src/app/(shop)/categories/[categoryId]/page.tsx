@@ -1,8 +1,8 @@
 'use client'
 
 import { useFetchCategory } from '@/features/category/api/use-fetch-category'
-import { useFetchProducts } from '@/features/product/api/use-fetch-products'
 import ItemCard from './_components/item-card'
+import { Skeleton } from '@/components/ui/skeleton'
 
 type Props = {
 	params: {
@@ -18,11 +18,41 @@ const CategoryPage = ({ params: { categoryId } }: Props) => {
 	} = useFetchCategory(categoryId)
 
 	if (isCategoryPending) {
-		return <div>Loading ...</div>
+		return (
+			<div>
+				<h1 className='text-3xl font-semibold mb-4 animate-pulse'>
+					Loading...
+				</h1>
+				<div className='grid grid-cols-3 gap-4'>
+					<Skeleton className='w-60 h-80' />
+					<Skeleton className='w-60 h-80' />
+					<Skeleton className='w-60 h-80' />
+					<Skeleton className='w-60 h-80' />
+					<Skeleton className='w-60 h-80' />
+					<Skeleton className='w-60 h-80' />
+					<Skeleton className='w-60 h-80' />
+				</div>
+			</div>
+		)
 	}
 
 	if (isCategoryError) {
-		return <div>Error</div>
+		return (
+			<div>
+				<h1 className='text-3xl font-semibold mb-4 animate-pulse'>
+					Loading...
+				</h1>
+				<div className='grid grid-cols-3 gap-4'>
+					<Skeleton className='w-60 h-80' />
+					<Skeleton className='w-60 h-80' />
+					<Skeleton className='w-60 h-80' />
+					<Skeleton className='w-60 h-80' />
+					<Skeleton className='w-60 h-80' />
+					<Skeleton className='w-60 h-80' />
+					<Skeleton className='w-60 h-80' />
+				</div>
+			</div>
+		)
 	}
 
 	return (
