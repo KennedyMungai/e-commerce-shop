@@ -2,6 +2,7 @@
 
 import { Button } from '@/components/ui/button'
 import { Skeleton } from '@/components/ui/skeleton'
+import WishlistItem from '@/components/wishlist-item'
 import CartForm from '@/features/cart/components/cart-form'
 import { useFetchProduct } from '@/features/product/api/use-fetch-product'
 import { HeartIcon } from 'lucide-react'
@@ -76,15 +77,8 @@ const ProductDetail = ({ params: { productId } }: Props) => {
 					height={500}
 					className='rounded-md object-contain'
 				/>
-				<div className='absolute bottom-4 flex gap-2 items-center justify-center'>
-					<Button
-						size='icon'
-						variant={'outline'}
-						className='bg-transparent border-none text-black'
-					>
-						<HeartIcon />
-					</Button>
-					<p className='text-rose-500'>Add to wishlist</p>
+				<div className='absolute bottom-4'>
+					<WishlistItem productId={productId} />
 				</div>
 			</div>
 			<div className='h-full w-full flex flex-col items-center justify-center p-4'>
