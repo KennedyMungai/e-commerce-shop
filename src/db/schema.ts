@@ -20,10 +20,6 @@ export const product = pgTable('product', {
 	supplierId: uuid('supplier_id')
 		.references(() => supplier.id, { onDelete: 'cascade' })
 		.notNull(),
-	cartId: uuid('cart_id').references(() => cart.id, { onDelete: 'cascade' }),
-	wishListId: uuid('wish_list_id').references(() => wishList.id, {
-		onDelete: 'cascade'
-	}),
 	orderId: uuid('order_id').references(() => order.id, {
 		onDelete: 'cascade'
 	}),
@@ -66,12 +62,18 @@ export const cart = pgTable('cart', {
 	id: uuid('id').defaultRandom().primaryKey(),
 	userId: varchar('user_id').notNull(),
 	quantity: integer('quantity').default(0),
+	product: uuid('product_id')
+		.references(() => product.id, { onDelete: 'cascade' })
+		.notNull(),
 	createdAt: timestamp('created_at').defaultNow().notNull(),
 	updatedAt: timestamp('updated_at').$onUpdate(() => new Date())
 })
 
-export const cartRelations = relations(cart, ({ many }) => ({
-	product: many(product)
+export const cartRelations = relations(cart, ({ one }) => ({
+	product: one(product, {
+		fields: [cart.product],
+		references: [product.id]
+	})
 }))
 
 export const createCart = createInsertSchema(cart)
@@ -153,12 +155,18 @@ export const createSupplier = createInsertSchema(supplier)
 export const wishList = pgTable('wish_list', {
 	id: uuid('id').defaultRandom().primaryKey(),
 	userId: varchar('user_id').notNull(),
+	productId: uuid('product_id')
+		.references(() => product.id, { onDelete: 'cascade' })
+		.notNull(),
 	createdAt: timestamp('created_at').defaultNow().notNull(),
 	updatedAt: timestamp('updated_at').$onUpdate(() => new Date())
 })
 
-export const wishListRelations = relations(wishList, ({ many }) => ({
-	product: many(product)
+export const wishListRelations = relations(wishList, ({ one }) => ({
+	product: one(product, {
+		fields: [wishList.productId],
+		references: [product.id]
+	})
 }))
 
 export const createWishList = createInsertSchema(wishList)
