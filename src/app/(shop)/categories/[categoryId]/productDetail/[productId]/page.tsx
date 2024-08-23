@@ -2,8 +2,9 @@
 
 import { Button } from '@/components/ui/button'
 import { Skeleton } from '@/components/ui/skeleton'
+import CartForm from '@/features/cart/components/cart-form'
 import { useFetchProduct } from '@/features/product/api/use-fetch-product'
-import { HeartIcon, ShoppingCartIcon } from 'lucide-react'
+import { HeartIcon } from 'lucide-react'
 import Image from 'next/image'
 
 type Props = {
@@ -91,10 +92,9 @@ const ProductPage = ({ params: { productId } }: Props) => {
 				<p className='text-neutral-600 dark:text-neutral-300'>
 					{product.description}
 				</p>
-				<Button className=' absolute bottom-4 animate-bounce hover:animate-none'>
-					<ShoppingCartIcon className='mr-4' />
-					Add To Cart
-				</Button>
+				<div className='absolute bottom-4 flex gap-x-4'>
+					<CartForm productId={productId} />
+				</div>
 			</div>
 		</div>
 	)
