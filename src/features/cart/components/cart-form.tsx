@@ -34,6 +34,8 @@ const CartForm = ({ productId }: Props) => {
 		form.reset()
 	}
 
+	// TODO: Look into the weird thing that happens when you update product quantity
+
 	return (
 		<Form {...form}>
 			<form onSubmit={form.handleSubmit(onSubmit)}>
@@ -45,9 +47,9 @@ const CartForm = ({ productId }: Props) => {
 							<FormItem>
 								<FormControl>
 									<Input
-										{...field}
 										type='number'
 										className='w-16 p-2 ring-0 hover:ring-0 outline-none hover:outline'
+										{...field}
 									/>
 								</FormControl>
 							</FormItem>
