@@ -53,32 +53,22 @@ export const productColumns: ColumnDef<Product>[] = [
 	// TODO: FInd a way to render the image and not the imageUrl
 	{
 		accessorKey: 'id',
-		header: 'Upload Image',
-		cell: ({ row }) => (
-			<Button variant={'outline'} size='icon'>
-				{row.getValue('imageUrl') ? (
-					<Image
-						src={row.getValue('imageUrl')}
-						width={40}
-						height={40}
-						alt='Product Image'
-					/>
-				) : (
-					<UploaderButton id={row.getValue('id')} />
-				)}
-			</Button>
-		)
-	},
-	{
-		accessorKey: 'imageUrl'
-		// header: 'Image',
-		// cell: ({ row }) => (
-		// 	<Image
-		// 		src={row.getValue('imageUrl')}
-		// 		width={40}
-		// 		height={40}
-		// 		alt='Product Image'
-		// 	/>
-		// )
+		header: 'Image',
+		cell: ({ row }) => {
+			const product = row.original
+			const productImage = product.imageUrl
+			const id = product.id
+
+			return productImage === null ? (
+				<UploaderButton id={id!} />
+			) : (
+				<Image
+					src={productImage!}
+					width={40}
+					height={40}
+					alt='Product Image'
+				/>
+			)
+		}
 	}
 ]

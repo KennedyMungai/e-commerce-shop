@@ -1,9 +1,11 @@
 import { useEditProduct } from '@/features/product/api/use-edit-product'
 import { useFetchProduct } from '@/features/product/api/use-fetch-product'
+import { cn } from '@/lib/utils'
 import { useUploadThing } from '@/utils/uploadthing'
 import { LoaderIcon, UploadIcon } from 'lucide-react'
 import { ChangeEvent } from 'react'
 import { toast } from 'sonner'
+import { buttonVariants } from './ui/button'
 
 type Input = Parameters<typeof useUploadThing>
 
@@ -80,7 +82,7 @@ export const UploaderButton = ({ id }: Props) => {
 			<input
 				id='upload-button'
 				type='file'
-				className='sr-only'
+				className={cn('sr-only', buttonVariants({ variant: 'ghost' }))}
 				{...inputProps}
 			/>
 		</div>
