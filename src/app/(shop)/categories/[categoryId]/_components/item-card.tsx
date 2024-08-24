@@ -14,21 +14,23 @@ type Props = {
 const ItemCard = ({ description, imageUrl, name, href }: Props) => {
 	return (
 		<Link href={href}>
-			<Card className='w-60 h-80 rounded-md bg-white'>
+			<Card className='w-64 h-96 rounded-md bg-white'>
 				<CardContent className='pb-2 px-0'>
 					<Image
 						src={imageUrl}
 						alt={name}
 						width={300}
 						height={300}
-						className='rounded-md object-contain relative'
+						className='rounded-md object-contain'
 					/>
-					<p className='text-lg font-semibold text-center text-black'>
-						{name}
-					</p>
-					<p className='text-xs text-muted-foreground text-center'>
-						{description}
-					</p>
+					<div className=''>
+						<p className='text-lg font-semibold text-center text-black'>
+							{name}
+						</p>
+						<p className='text-xs text-muted-foreground text-center'>
+							{description}
+						</p>
+					</div>
 				</CardContent>
 			</Card>
 		</Link>
