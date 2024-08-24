@@ -9,7 +9,7 @@ import { Skeleton } from './ui/skeleton'
 const Sidebar = () => {
 	const pathname = usePathname()
 
-	const route = pathname.split('/')[1]
+	const route = pathname.split('/')[2]
 
 	const {
 		data: categories,
