@@ -193,7 +193,6 @@ export const wishList = pgTable(
 			.references(() => product.id, { onDelete: 'cascade' })
 			.notNull()
 			.unique(),
-		quantity: integer('quantity').default(0).notNull(),
 		createdAt: timestamp('created_at').defaultNow().notNull(),
 		updatedAt: timestamp('updated_at').$onUpdate(() => new Date())
 	},
