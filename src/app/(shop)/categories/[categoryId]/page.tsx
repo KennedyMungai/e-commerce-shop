@@ -60,7 +60,7 @@ const CategoryPage = ({ params: { categoryId } }: Props) => {
 			<h1 className='text-3xl font-semibold mb-4'>{category.name}</h1>
 			<div className='grid grid-cols-3 gap-4'>
 				{category.products
-					.filter((item) => item.imageUrl !== '')
+					.filter((item) => item.imageUrl !== null)
 					.map((item) => (
 						<ItemCard
 							key={item.id}

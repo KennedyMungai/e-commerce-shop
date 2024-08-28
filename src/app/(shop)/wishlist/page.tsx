@@ -24,7 +24,7 @@ const WishlistPage = () => {
 
 			<div className='grid grid-cols-3 gap-4'>
 				{products
-					.filter((item) => item.product.imageUrl !== '')
+					.filter((item) => item.product.imageUrl !== null)
 					.map((item) => (
 						<ItemCard
 							key={item.id}

@@ -54,7 +54,7 @@ const HomePage = () => {
 			<h1 className='text-3xl font-semibold mb-4'>All items</h1>
 			<div className='grid grid-cols-3 gap-4'>
 				{products
-					.filter((item) => item.imageUrl !== '')
+					.filter((item) => item.imageUrl !== null)
 					.map((item) => (
 						<ItemCard
 							key={item.id}
