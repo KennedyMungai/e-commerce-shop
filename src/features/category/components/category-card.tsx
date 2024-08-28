@@ -32,11 +32,11 @@ const CategoryCard = ({ name, description, categoryId }: Props) => {
 	const { mutate } = useDeleteCategory(categoryId)
 
 	return (
-		<Card className='w-48 h-64 p-4'>
-			<div className='flex justify-end'>
+		<Card className='w-48 h-64 p-4 relative'>
+			<div className='absolute top-0 right-0'>
 				<DropdownMenu>
 					<DropdownMenuTrigger>
-						<Button size='icon' variant={'outline'}>
+						<Button size='icon' variant={'ghost'}>
 							<MoreVerticalIcon className='size-6' />
 						</Button>
 					</DropdownMenuTrigger>
