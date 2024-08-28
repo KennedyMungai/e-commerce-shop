@@ -5,6 +5,7 @@ import {
 	pgTable,
 	text,
 	timestamp,
+	uniqueIndex,
 	uuid,
 	varchar
 } from 'drizzle-orm/pg-core'
@@ -59,16 +60,28 @@ export const categoryRelations = relations(category, ({ many }) => ({
 
 export const createCategory = createInsertSchema(category)
 
-export const cart = pgTable('cart', {
-	id: uuid('id').defaultRandom().primaryKey(),
-	userId: varchar('user_id').notNull(),
-	quantity: integer('quantity').default(0),
-	productId: uuid('product_id')
-		.references(() => product.id, { onDelete: 'cascade' })
-		.notNull(),
-	createdAt: timestamp('created_at').defaultNow().notNull(),
-	updatedAt: timestamp('updated_at').$onUpdate(() => new Date())
-})
+export const cart = pgTable(
+	'cart',
+	{
+		id: uuid('id').defaultRandom().primaryKey(),
+		userId: varchar('user_id').notNull(),
+		quantity: integer('quantity').default(0),
+		productId: uuid('product_id')
+			.references(() => product.id, { onDelete: 'cascade' })
+			.notNull()
+			.unique(),
+		createdAt: timestamp('created_at').defaultNow().notNull(),
+		updatedAt: timestamp('updated_at').$onUpdate(() => new Date())
+	},
+	(table) => {
+		return {
+			uniqueIndex: uniqueIndex('cart_product_id_cart_id_idx').on(
+				table.productId,
+				table.id
+			)
+		}
+	}
+)
 
 export const cartRelations = relations(cart, ({ one }) => ({
 	product: one(product, {
@@ -79,22 +92,33 @@ export const cartRelations = relations(cart, ({ one }) => ({
 
 export const createCart = createInsertSchema(cart)
 
-export const order = pgTable('order', {
-	id: uuid('id').defaultRandom().primaryKey(),
-	userId: varchar('user_id').notNull(),
-	productId: uuid('product_id')
-		.references(() => product.id, { onDelete: 'cascade' })
-		.notNull()
-		.unique(), // Ensure one-to-one relationship
-	quantity: integer('quantity').default(1).notNull(),
-	location: geometry('location', {
-		type: 'point',
-		mode: 'xy',
-		srid: 4326
-	}).notNull(),
-	createdAt: timestamp('created_at').defaultNow().notNull(),
-	updatedAt: timestamp('updated_at').$onUpdate(() => new Date())
-})
+export const order = pgTable(
+	'order',
+	{
+		id: uuid('id').defaultRandom().primaryKey(),
+		userId: varchar('user_id').notNull(),
+		productId: uuid('product_id')
+			.references(() => product.id, { onDelete: 'cascade' })
+			.notNull()
+			.unique(), // Ensure one-to-one relationship
+		quantity: integer('quantity').default(1).notNull(),
+		location: geometry('location', {
+			type: 'point',
+			mode: 'xy',
+			srid: 4326
+		}).notNull(),
+		createdAt: timestamp('created_at').defaultNow().notNull(),
+		updatedAt: timestamp('updated_at').$onUpdate(() => new Date())
+	},
+	(table) => {
+		return {
+			uniqueIndex: uniqueIndex('order_product_id_order_id_idx').on(
+				table.productId,
+				table.id
+			)
+		}
+	}
+)
 
 export const orderRelations = relations(order, ({ one }) => ({
 	product: one(product, {
@@ -160,15 +184,28 @@ export const supplierRelations = relations(supplier, ({ many }) => ({
 
 export const createSupplier = createInsertSchema(supplier)
 
-export const wishList = pgTable('wish_list', {
-	id: uuid('id').defaultRandom().primaryKey(),
-	userId: varchar('user_id').notNull(),
-	productId: uuid('product_id')
-		.references(() => product.id, { onDelete: 'cascade' })
-		.notNull(),
-	createdAt: timestamp('created_at').defaultNow().notNull(),
-	updatedAt: timestamp('updated_at').$onUpdate(() => new Date())
-})
+export const wishList = pgTable(
+	'wish_list',
+	{
+		id: uuid('id').defaultRandom().primaryKey(),
+		userId: varchar('user_id').notNull(),
+		productId: uuid('product_id')
+			.references(() => product.id, { onDelete: 'cascade' })
+			.notNull()
+			.unique(),
+		quantity: integer('quantity').default(0).notNull(),
+		createdAt: timestamp('created_at').defaultNow().notNull(),
+		updatedAt: timestamp('updated_at').$onUpdate(() => new Date())
+	},
+	(table) => {
+		return {
+			uniqueIndex: uniqueIndex('wish_list_product_id_wishlist_id_idx').on(
+				table.productId,
+				table.id
+			)
+		}
+	}
+)
 
 export const wishListRelations = relations(wishList, ({ one }) => ({
 	product: one(product, {
